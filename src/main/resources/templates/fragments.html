@@ -17,8 +17,9 @@
 
 <!--@thymesVar id="user" type="java.lang.String"-->
 
-<header th:fragment="header" style="width:100%;border-bottom:1px solid black;">
+<header th:fragment="header" style="width:100%;border-bottom:1px solid black; text-align: center">
     <h1>Anatomy archive</h1>
+    <img src="../public/images/vitruvian.jpg" th:src="@{/images/vitruvian.jpg}" width="10%" />
 </header>
 
 <footer th:fragment="footer" style="width:100%;border-top:1px solid black;">
