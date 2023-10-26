@@ -1,8 +1,12 @@
 
-h1
+h1, h2, h3, h4, h5
 {
-    color: orangered;
+    color: mediumpurple;
     font-family: "Times New Roman", Times, serif;
-    font-size: 50px;
     text-align: center;
+}
+
+#search-input
+{
+    color: red;
 }
