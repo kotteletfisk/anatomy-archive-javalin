@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(title)">
+    <title th:text="${title}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/main.css" th:href="@{/css/main.css}" rel="stylesheet"/>
+    <script type="text/javascript" src="../public/js/my_script.js" th:src="@{/js/my_script.js}"></script>
+</head>
+
+<body>
+
+<!--@thymesVar id="user" type="java.lang.String"-->
+
+<header th:fragment="header" style="width:100%;border-bottom:1px solid black;">
+    <h1>En dejlig stor header du</h1>
+</header>
+
+<footer th:fragment="footer" style="width:100%;border-top:1px solid black;">
+    Dette er så en footer.
+</footer>
+
+</body>
+</html>
