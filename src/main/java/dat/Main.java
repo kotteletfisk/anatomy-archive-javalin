@@ -12,8 +12,7 @@ public class Main
         ApplicationConfig
                 .startServer(
                         Javalin.create(),
-                        // Integer.parseInt(ApplicationConfig.getProperty("javalin.port"))); //TODO: Nullpointer
-                        7070);
+                        Integer.parseInt(ApplicationConfig.getProperty("javalin.port")));
 
         // TODO: Add entities
         // TODO: Add database connection

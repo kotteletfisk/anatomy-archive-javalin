@@ -1,6 +1,7 @@
 package dat.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +31,8 @@ public class Exercise
     @Column(name = "exercise_intensity", nullable = false)
     private int intensity;
     @Column(name = "exercise_type", nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ExerciseType type;
     @Column(name = "exercise_calisthenic", nullable = false)
     private boolean calisthenic;
 
@@ -39,6 +41,16 @@ public class Exercise
 
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
+
+    public Exercise(String name, String description, String mediaPath, int intensity, ExerciseType type, boolean calisthenic)
+    {
+        this.name = name;
+        this.description = description;
+        this.mediaPath = mediaPath;
+        this.intensity = intensity;
+        this.type = type;
+        this.calisthenic = calisthenic;
+    }
 
     public ExerciseHasMuscles addMuscle(Muscle muscle)
     {
@@ -64,5 +76,15 @@ public class Exercise
         exerciseHasEquipment.setEquipment(equipment);
         this.exerciseHasEquipment.add(exerciseHasEquipment);
         return exerciseHasEquipment;
+    }
+
+    public enum ExerciseType
+    {
+        CALISTHENIC,
+        WEIGHTLIFTING,
+        CARDIO,
+        STRETCHING,
+        ISOMETRIC,
+        DYNAMIC
     }
 }

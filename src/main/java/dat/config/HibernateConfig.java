@@ -1,5 +1,6 @@
 package dat.config;
 
+import dat.entities.*;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -104,7 +105,12 @@ public class HibernateConfig {
 
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-
+        configuration.addAnnotatedClass(Equipment.class);
+        configuration.addAnnotatedClass(Exercise.class);
+        configuration.addAnnotatedClass(ExerciseHasEquipment.class);
+        configuration.addAnnotatedClass(ExerciseHasMuscles.class);
+        configuration.addAnnotatedClass(Muscle.class);
+        configuration.addAnnotatedClass(MuscleGroup.class);
     }
 
     private static EntityManagerFactory getEntityManagerFactoryConfigDev() {
