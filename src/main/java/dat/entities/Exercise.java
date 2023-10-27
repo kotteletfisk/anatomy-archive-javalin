@@ -30,9 +30,13 @@ public class Exercise
     private String mediaPath;
     @Column(name = "exercise_intensity", nullable = false)
     private int intensity;
+
+    // TODO: Make many to one relation
     @Column(name = "exercise_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private ExerciseType type;
+
+    //TODO: remove this
     @Column(name = "exercise_calisthenic", nullable = false)
     private boolean calisthenic;
 
