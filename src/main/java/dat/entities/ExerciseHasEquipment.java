@@ -17,9 +17,9 @@ public class ExerciseHasEquipment
     @Column(name = "exercise_has_equipment_id")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Exercise exercise;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Equipment equipment;
 }

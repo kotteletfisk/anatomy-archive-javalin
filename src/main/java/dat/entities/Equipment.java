@@ -27,6 +27,6 @@ public class Equipment
     @Column(nullable = true)
     private String mediaPath;
 
-    @OneToMany(mappedBy = "equipment")
+    @OneToMany(mappedBy = "equipment", fetch = FetchType.EAGER)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 }

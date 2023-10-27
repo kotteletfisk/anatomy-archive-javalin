@@ -23,18 +23,21 @@ public class Exercise
     private int id;
     @Column(name = "exercise_name", nullable = false)
     private String name;
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "exercise_description", columnDefinition = "TEXT")
     private String description;
-    @Column(nullable = true)
+    @Column(name = "exercise_mediapath", nullable = true)
     private String mediaPath;
+    @Column(name = "exercise_intensity", nullable = false)
     private int intensity;
+    @Column(name = "exercise_type", nullable = false)
     private String type;
+    @Column(name = "exercise_calisthenic", nullable = false)
     private boolean calisthenic;
 
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<ExerciseHasMuscles> exerciseHasMuscles = new HashSet<>();
 
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 
     public ExerciseHasMuscles addMuscle(Muscle muscle)

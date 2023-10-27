@@ -29,6 +29,6 @@ public class MuscleGroup
     @Column(nullable = true)
     private String mediaPath;
 
-    @OneToMany(mappedBy = "muscleGroup")
+    @OneToMany(mappedBy = "muscleGroup", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<Muscle> muscles = new HashSet<>();
 }
