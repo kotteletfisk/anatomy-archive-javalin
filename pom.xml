@@ -14,7 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <hibernate-version>6.2.4.Final</hibernate-version>
-        <db.name>hotel</db.name>
+        <db.name>anatomy_archive</db.name>
+        <testdb.name>anatomy_archive_test</testdb.name>
         <db.username>postgres</db.username>
         <db.password>postgres</db.password>
         <db.connection.string>jdbc:postgresql://localhost:5432/</db.connection.string>

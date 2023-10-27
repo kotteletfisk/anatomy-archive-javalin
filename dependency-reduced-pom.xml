@@ -52,9 +52,10 @@
     <db.connection.string>jdbc:postgresql://localhost:5432/</db.connection.string>
     <maven.compiler.source>17</maven.compiler.source>
     <db.username>postgres</db.username>
+    <testdb.name>anatomy_archive_test</testdb.name>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javalin.port>7070</javalin.port>
-    <db.name>hotel</db.name>
+    <db.name>anatomy_archive</db.name>
   </properties>
 </project>

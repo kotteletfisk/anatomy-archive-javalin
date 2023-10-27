@@ -14,5 +14,9 @@ public class Main
                         Javalin.create(),
                         // Integer.parseInt(ApplicationConfig.getProperty("javalin.port"))); //TODO: Nullpointer
                         7070);
+
+        // TODO: Add entities
+        // TODO: Add database connection
+        // TODO: add routehandlers
     }
 }

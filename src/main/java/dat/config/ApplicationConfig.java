@@ -29,7 +29,6 @@ public class ApplicationConfig {
         Routes routes = new Routes();
         app.updateConfig(ApplicationConfig::configuration);
         app.routes(routes.getRoutes(app));
-        HibernateConfig.setTest(false);
         app.start(port);
     }
 
