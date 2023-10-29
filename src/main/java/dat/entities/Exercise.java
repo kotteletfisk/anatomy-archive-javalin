@@ -34,7 +34,10 @@ public class Exercise
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    // TODO: Figure out if wrapping entity solution is better than this
+    @ElementCollection(targetClass = ExerciseType.class)
+    @CollectionTable(name = "exercisehastypes", joinColumns = @JoinColumn(name = "exercise_id"))
+    @Enumerated(EnumType.STRING)
     Set<ExerciseType> exerciseTypes = new HashSet<>();
 
     public Exercise(String name, String description, String mediaPath, int intensity)
@@ -52,7 +55,6 @@ public class Exercise
             throw new NullPointerException("Added exercise type is null!");
         }
         this.exerciseTypes.add(exerciseType);
-        exerciseType.getExercises().add(this);
     }
 
     public ExerciseHasMuscles addMuscle(Muscle muscle)
@@ -79,5 +81,15 @@ public class Exercise
         exerciseHasEquipment.setEquipment(equipment);
         this.exerciseHasEquipment.add(exerciseHasEquipment);
         return exerciseHasEquipment;
+    }
+
+    public enum ExerciseType
+    {
+        CALISTHENIC,
+        WEIGHTLIFTING,
+        CARDIO,
+        STRETCHING,
+        ISOMETRIC,
+        DYNAMIC;
     }
 }
