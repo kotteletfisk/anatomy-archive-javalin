@@ -16,9 +16,9 @@ public class ExerciseHasMuscles
     @Column(name = "exercise_has_muscles_id")
     private int id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Exercise exercise;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Muscle muscle;
 }

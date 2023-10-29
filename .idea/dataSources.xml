@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/anatomy_archive_test</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="anatomy_archive@localhost" uuid="aa9c9807-04d4-485e-ba0e-b561e4af8c4f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/anatomy_archive</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
