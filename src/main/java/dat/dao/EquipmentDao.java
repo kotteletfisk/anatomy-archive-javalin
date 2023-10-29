@@ -31,13 +31,24 @@ public class EquipmentDao implements DAO<Equipment>
     @Override
     public Equipment read(int id)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Equipment.class, id);
+        }
+        catch (NoResultException e)
+        {
+            return null;
+        }
     }
 
     @Override
     public List<Equipment> readAll()
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Equipment e", Equipment.class)
+                    .getResultList();
+        }
     }
 
     @Override
@@ -58,12 +69,24 @@ public class EquipmentDao implements DAO<Equipment>
     @Override
     public Equipment update(Equipment equipment)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Equipment updatedEquipment = em.merge(equipment);
+            em.getTransaction().commit();
+            return updatedEquipment;
+        }
     }
 
     @Override
     public Equipment create(Equipment equipment)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(equipment);
+            em.getTransaction().commit();
+            return equipment;
+        }
     }
 }
