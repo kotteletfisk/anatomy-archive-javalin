@@ -29,13 +29,24 @@ public class MuscleDao implements DAO<Muscle>
     @Override
     public Muscle read(int id)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Muscle.class, id);
+        }
+        catch (NoResultException e)
+        {
+            return null;
+        }
     }
 
     @Override
     public List<Muscle> readAll()
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM Muscle m", Muscle.class)
+                    .getResultList();
+        }
     }
 
     @Override
@@ -56,12 +67,24 @@ public class MuscleDao implements DAO<Muscle>
     @Override
     public Muscle update(Muscle muscle)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Muscle updatedMuscle = em.merge(muscle);
+            em.getTransaction().commit();
+            return updatedMuscle;
+        }
     }
 
     @Override
     public Muscle create(Muscle muscle)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(muscle);
+            em.getTransaction().commit();
+            return muscle;
+        }
     }
 }
