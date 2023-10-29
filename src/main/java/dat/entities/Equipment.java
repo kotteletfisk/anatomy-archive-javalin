@@ -27,6 +27,13 @@ public class Equipment
     @Column(nullable = true)
     private String mediaPath;
 
+    public Equipment(String name, String mediaPath, String description)
+    {
+        this.name = name;
+        this.description = description;
+        this.mediaPath = mediaPath;
+    }
+
     @OneToMany(mappedBy = "equipment", fetch = FetchType.EAGER)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 }

@@ -1,49 +1,51 @@
 package dat.dao;
 
 import dat.config.HibernateConfig;
-import dat.entities.Muscle;
+import dat.entities.Equipment;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
-public class MuscleDao implements DAO<Muscle>
+public class EquipmentDao implements DAO<Equipment>
 {
-    private static MuscleDao instance;
+    private static EquipmentDao instance;
+
     private EntityManagerFactory emf;
-    private MuscleDao()
+
+    private EquipmentDao()
     {
         this.emf = HibernateConfig.getEntityManagerFactory();
     }
 
-    public static MuscleDao getInstance()
+    public static EquipmentDao getInstance()
     {
         if (instance == null)
         {
-            instance = new MuscleDao();
+            instance = new EquipmentDao();
         }
         return instance;
     }
 
     @Override
-    public Muscle read(int id)
+    public Equipment read(int id)
     {
         return null;
     }
 
     @Override
-    public List<Muscle> readAll()
+    public List<Equipment> readAll()
     {
         return null;
     }
 
     @Override
-    public Muscle readByName(String name)
+    public Equipment readByName(String name)
     {
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT m FROM Muscle m WHERE m.name = :name", Muscle.class)
+            return em.createQuery("SELECT e FROM Equipment e WHERE e.name = :name", Equipment.class)
                     .setParameter("name", name)
                     .getSingleResult();
         }
@@ -54,13 +56,13 @@ public class MuscleDao implements DAO<Muscle>
     }
 
     @Override
-    public Muscle update(Muscle muscle)
+    public Equipment update(Equipment equipment)
     {
         return null;
     }
 
     @Override
-    public Muscle create(Muscle muscle)
+    public Equipment create(Equipment equipment)
     {
         return null;
     }

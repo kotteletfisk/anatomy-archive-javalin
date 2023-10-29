@@ -1,6 +1,7 @@
 package dat.entities;
 
 import dat.dao.DAO;
+import dat.dao.EquipmentDao;
 import dat.dao.MuscleDao;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -66,9 +67,12 @@ public class Exercise
             throw new NullPointerException("Added muscle is null!");
         }
 
+        DAO<Muscle> dao = MuscleDao.getInstance();
+        Muscle found = dao.readByName(muscle.getName());
+
         ExerciseHasMuscles exerciseHasMuscles = new ExerciseHasMuscles();
         exerciseHasMuscles.setExercise(this);
-        exerciseHasMuscles.setMuscle(muscle);
+        exerciseHasMuscles.setMuscle(found != null ? found : muscle);
         this.exerciseHasMuscles.add(exerciseHasMuscles);
         return exerciseHasMuscles;
     }
@@ -79,9 +83,13 @@ public class Exercise
         {
             throw new NullPointerException("Added equipment is null!");
         }
+
+        DAO<Equipment> dao = EquipmentDao.getInstance();
+        Equipment found = dao.readByName(equipment.getName());
+
         ExerciseHasEquipment exerciseHasEquipment = new ExerciseHasEquipment();
         exerciseHasEquipment.setExercise(this);
-        exerciseHasEquipment.setEquipment(equipment);
+        exerciseHasEquipment.setEquipment(found != null ? found : equipment);
         this.exerciseHasEquipment.add(exerciseHasEquipment);
         return exerciseHasEquipment;
     }

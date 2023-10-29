@@ -14,8 +14,7 @@ public class Main
                         Javalin.create(),
                         Integer.parseInt(ApplicationConfig.getProperty("javalin.port")));
 
-        // TODO: Add entities
-        // TODO: Add database connection
+        // TODO: Add wrapper entity for exercise type enum
         // TODO: add routehandlers
     }
 }

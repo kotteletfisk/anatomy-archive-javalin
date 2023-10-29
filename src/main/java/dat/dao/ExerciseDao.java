@@ -2,15 +2,9 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.Exercise;
-import dat.entities.Muscle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import javassist.NotFoundException;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NotFound;
-
+import jakarta.persistence.NoResultException;
 import java.util.List;
 
 
@@ -38,25 +32,51 @@ public class ExerciseDao implements DAO<Exercise>
     @Override
     public Exercise read(int id)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Exercise.class, id);
+        }
+        catch (NoResultException e)
+        {
+            return null;
+        }
     }
 
     @Override
     public List<Exercise> readAll()
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e", Exercise.class)
+                    .getResultList();
+        }
     }
 
     @Override
     public Exercise readByName(String name)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e WHERE e.name = :name", Exercise.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            return null;
+        }
     }
 
     @Override
     public Exercise update(Exercise exercise)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.merge(exercise);
+            em.getTransaction().commit();
+            return exercise;
+        }
     }
 
     @Override
