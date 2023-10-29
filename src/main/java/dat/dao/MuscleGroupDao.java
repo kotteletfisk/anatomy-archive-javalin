@@ -39,24 +39,45 @@ public class MuscleGroupDao implements DAO<MuscleGroup>
     @Override
     public List<MuscleGroup> readAll()
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM MuscleGroup m", MuscleGroup.class)
+                    .getResultList();
+        }
     }
 
     @Override
     public MuscleGroup readByName(String name)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM MuscleGroup m WHERE m.name = :name", MuscleGroup.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        }
     }
 
     @Override
     public MuscleGroup update(MuscleGroup muscleGroup)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.merge(muscleGroup);
+            em.getTransaction().commit();
+            return muscleGroup;
+        }
     }
 
     @Override
     public MuscleGroup create(MuscleGroup muscleGroup)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(muscleGroup);
+            em.getTransaction().commit();
+            return muscleGroup;
+        }
     }
 }
