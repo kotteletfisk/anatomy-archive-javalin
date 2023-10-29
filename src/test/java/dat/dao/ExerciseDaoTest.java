@@ -1,10 +1,7 @@
 package dat.dao;
 
 import dat.config.HibernateConfig;
-import dat.entities.Equipment;
-import dat.entities.Exercise;
-import dat.entities.Muscle;
-import dat.entities.MuscleGroup;
+import dat.entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,6 +21,7 @@ class ExerciseDaoTest
     @BeforeAll
     static void setUp()
     {
+        // TODO: Fix Setup, truncate tables, reset sequences
         HibernateConfig.setTest(true);
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
@@ -93,12 +91,12 @@ class ExerciseDaoTest
     void createExerciseWithTypes()
     {
         Exercise exercise = new Exercise("Pull-up", "Pull yourself up on a bar", null, 5);
-        exercise.addExerciseType(Exercise.ExerciseType.CALISTHENIC);
-        exercise.addExerciseType(Exercise.ExerciseType.DYNAMIC);
+        exercise.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.CALISTHENIC));
+        exercise.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.DYNAMIC));
 
         Exercise exercise2 = new Exercise("Bar-curl", "Curl a bar in front of you", null, 5);
-        exercise2.addExerciseType(Exercise.ExerciseType.WEIGHTLIFTING);
-        exercise2.addExerciseType(Exercise.ExerciseType.DYNAMIC);
+        exercise2.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.WEIGHTLIFTING));
+        exercise2.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.DYNAMIC));
 
         DAO<Exercise> dao = ExerciseDao.getInstance();
 
@@ -111,8 +109,15 @@ class ExerciseDaoTest
     {
         Exercise exercise = new Exercise("Squat", "Squat down below the knees", null, 5);
 
-        exercise.addMuscle(new Muscle("Quadriceps", null, "Front of the thigh", mg3));
-        exercise.addMuscle(new Muscle("Hamstrings", null, "Back of the thigh", mg3));
+        Muscle muscle = new Muscle("Glutes", null, "Buttocks", mg3);
+        Muscle muscle1 = new Muscle("Hamstrings", null, "Back of the thigh", mg3);
+
+        DAO<Muscle> muscleDao = MuscleDao.getInstance();
+        muscleDao.create(muscle);
+        muscleDao.create(muscle1);
+
+        exercise.addMuscle(muscle);
+        exercise.addMuscle(muscle1);
 
         DAO<Exercise> dao = ExerciseDao.getInstance();
 
@@ -123,9 +128,15 @@ class ExerciseDaoTest
     void createExerciseWithEquipment()
     {
         Exercise exercise = new Exercise("Deadlift", "The dealift exercise", null, 5);
+        Equipment equipment = new Equipment("Barbell", null, "Barbell description");
+        Equipment equipment2 = new Equipment("Weight plates", null, "Weight plates description");
 
-        exercise.addEquipment(new Equipment("Barbell", null, "Barbell"));
-        exercise.addEquipment(new Equipment("Weight plates", null, "Weight plates"));
+        DAO<Equipment> equipmentDao = EquipmentDao.getInstance();
+        equipmentDao.create(equipment);
+        equipmentDao.create(equipment2);
+
+        exercise.addEquipment(equipment);
+        exercise.addEquipment(equipment2);
 
         DAO<Exercise> dao = ExerciseDao.getInstance();
 

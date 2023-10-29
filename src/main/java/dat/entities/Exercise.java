@@ -38,10 +38,11 @@ public class Exercise
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 
     // TODO: Figure out if wrapping entity solution is better than this
-    @ElementCollection(targetClass = ExerciseType.class)
-    @CollectionTable(name = "exercisehastypes", joinColumns = @JoinColumn(name = "exercise_id"))
-    @Enumerated(EnumType.STRING)
-    Set<ExerciseType> exerciseTypes = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "exercisehastypes",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_type_id"))
+    Set<ExerciseTypeWrapper> exerciseTypes = new HashSet<>();
 
     public Exercise(String name, String description, String mediaPath, int intensity)
     {
@@ -51,13 +52,14 @@ public class Exercise
         this.intensity = intensity;
     }
 
-    public void addExerciseType(ExerciseType exerciseType)
+    public void addExerciseType(ExerciseTypeWrapper exerciseTypeWrapper)
     {
-        if (exerciseType == null)
+        if (exerciseTypeWrapper == null)
         {
             throw new NullPointerException("Added exercise type is null!");
         }
-        this.exerciseTypes.add(exerciseType);
+        this.exerciseTypes.add(exerciseTypeWrapper);
+        exerciseTypeWrapper.getExercises().add(this);
     }
 
     public ExerciseHasMuscles addMuscle(Muscle muscle)
@@ -99,15 +101,5 @@ public class Exercise
         return exerciseHasMuscles.stream()
                 .map(ExerciseHasMuscles::getMuscle)
                 .collect(java.util.stream.Collectors.toSet());
-    }
-
-    public enum ExerciseType
-    {
-        CALISTHENIC,
-        WEIGHTLIFTING,
-        CARDIO,
-        STRETCHING,
-        ISOMETRIC,
-        DYNAMIC;
     }
 }
