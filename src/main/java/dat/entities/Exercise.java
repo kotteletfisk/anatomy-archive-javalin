@@ -1,14 +1,11 @@
 package dat.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -31,29 +28,31 @@ public class Exercise
     @Column(name = "exercise_intensity", nullable = false)
     private int intensity;
 
-    // TODO: Make many to one relation
-    @Column(name = "exercise_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ExerciseType type;
-
-    //TODO: remove this
-    @Column(name = "exercise_calisthenic", nullable = false)
-    private boolean calisthenic;
-
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<ExerciseHasMuscles> exerciseHasMuscles = new HashSet<>();
 
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 
-    public Exercise(String name, String description, String mediaPath, int intensity, ExerciseType type, boolean calisthenic)
+    @ManyToMany(fetch = FetchType.EAGER)
+    Set<ExerciseType> exerciseTypes = new HashSet<>();
+
+    public Exercise(String name, String description, String mediaPath, int intensity)
     {
         this.name = name;
         this.description = description;
         this.mediaPath = mediaPath;
         this.intensity = intensity;
-        this.type = type;
-        this.calisthenic = calisthenic;
+    }
+
+    public void addExerciseType(ExerciseType exerciseType)
+    {
+        if (exerciseType == null)
+        {
+            throw new NullPointerException("Added exercise type is null!");
+        }
+        this.exerciseTypes.add(exerciseType);
+        exerciseType.getExercises().add(this);
     }
 
     public ExerciseHasMuscles addMuscle(Muscle muscle)
@@ -80,15 +79,5 @@ public class Exercise
         exerciseHasEquipment.setEquipment(equipment);
         this.exerciseHasEquipment.add(exerciseHasEquipment);
         return exerciseHasEquipment;
-    }
-
-    public enum ExerciseType
-    {
-        CALISTHENIC,
-        WEIGHTLIFTING,
-        CARDIO,
-        STRETCHING,
-        ISOMETRIC,
-        DYNAMIC
     }
 }

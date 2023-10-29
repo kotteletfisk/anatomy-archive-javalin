@@ -109,6 +109,7 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(Exercise.class);
         configuration.addAnnotatedClass(ExerciseHasEquipment.class);
         configuration.addAnnotatedClass(ExerciseHasMuscles.class);
+        configuration.addAnnotatedClass(ExerciseType.class);
         configuration.addAnnotatedClass(Muscle.class);
         configuration.addAnnotatedClass(MuscleGroup.class);
     }

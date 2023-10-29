@@ -1,6 +1,7 @@
 package dat.dao;
 
 import dat.entities.Exercise;
+import dat.entities.ExerciseType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,8 +27,7 @@ class ExerciseDaoTest
     @Test
     void create()
     {
-        Exercise exercise = new Exercise("Pull-up", "Pull yourself up on a bar", null, 5,
-                Exercise.ExerciseType.CALISTHENIC, true);
+        Exercise exercise = new Exercise("Pull-up", "Pull yourself up on a bar", null, 5);
 
         DAO<Exercise> dao = ExerciseDao.getInstance(true);
 
