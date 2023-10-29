@@ -1,5 +1,7 @@
 package dat.entities;
 
+import dat.dao.DAO;
+import dat.dao.MuscleDao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -63,6 +65,7 @@ public class Exercise
         {
             throw new NullPointerException("Added muscle is null!");
         }
+
         ExerciseHasMuscles exerciseHasMuscles = new ExerciseHasMuscles();
         exerciseHasMuscles.setExercise(this);
         exerciseHasMuscles.setMuscle(muscle);
@@ -81,6 +84,13 @@ public class Exercise
         exerciseHasEquipment.setEquipment(equipment);
         this.exerciseHasEquipment.add(exerciseHasEquipment);
         return exerciseHasEquipment;
+    }
+
+    public Set<Muscle> getMuscles()
+    {
+        return exerciseHasMuscles.stream()
+                .map(ExerciseHasMuscles::getMuscle)
+                .collect(java.util.stream.Collectors.toSet());
     }
 
     public enum ExerciseType

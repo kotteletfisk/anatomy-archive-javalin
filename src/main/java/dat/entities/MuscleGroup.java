@@ -29,6 +29,22 @@ public class MuscleGroup
     @Column(nullable = true)
     private String mediaPath;
 
+    public MuscleGroup(String name, String mediaPath, String description)
+    {
+        this.name = name;
+        this.description = description;
+        this.mediaPath = mediaPath;
+    }
+
+    public void addMuscle(Muscle muscle)
+    {
+        if (muscle == null)
+        {
+            throw new NullPointerException("Added muscle is null!");
+        }
+        this.muscles.add(muscle);
+    }
+
     @OneToMany(mappedBy = "muscleGroup", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<Muscle> muscles = new HashSet<>();
 }

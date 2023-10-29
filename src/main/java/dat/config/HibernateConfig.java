@@ -14,6 +14,7 @@ import java.util.Properties;
 public class HibernateConfig {
     private static EntityManagerFactory entityManagerFactory;
 
+    private static Boolean isTest = false;
     private static EntityManagerFactory buildEntityFactoryConfigDev() {
         try {
             Configuration configuration = new Configuration();
@@ -123,8 +124,16 @@ public class HibernateConfig {
         return entityManagerFactory;
     }
 
-    public static EntityManagerFactory getEntityManagerFactory(boolean isTest) {
+    public static EntityManagerFactory getEntityManagerFactory() {
         if (isTest) return getEntityManagerFactoryConfigTest();
         return getEntityManagerFactoryConfigDev();
+    }
+
+    public static void setTest(Boolean test) {
+        isTest = test;
+    }
+
+    public static Boolean getTest() {
+        return isTest;
     }
 }

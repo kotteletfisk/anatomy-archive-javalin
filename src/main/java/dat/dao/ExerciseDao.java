@@ -2,11 +2,14 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.Exercise;
+import dat.entities.Muscle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import javassist.NotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
 
 import java.util.List;
 
@@ -17,19 +20,16 @@ public class ExerciseDao implements DAO<Exercise>
     private EntityManagerFactory emf;
     private static ExerciseDao instance;
 
-    @Getter(AccessLevel.PUBLIC)
-    private static boolean isTest;
-
-    private ExerciseDao(boolean isTest)
+    private ExerciseDao()
     {
-        emf = HibernateConfig.getEntityManagerFactory(isTest);
+        emf = HibernateConfig.getEntityManagerFactory();
     }
 
-    public static ExerciseDao getInstance(boolean isTest)
+    public static ExerciseDao getInstance()
     {
         if (instance == null)
         {
-            instance = new ExerciseDao(isTest);
+            instance = new ExerciseDao();
         }
         return instance;
     }
@@ -43,6 +43,12 @@ public class ExerciseDao implements DAO<Exercise>
 
     @Override
     public List<Exercise> readAll()
+    {
+        return null;
+    }
+
+    @Override
+    public Exercise readByName(String name)
     {
         return null;
     }

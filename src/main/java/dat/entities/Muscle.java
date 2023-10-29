@@ -20,10 +20,21 @@ public class Muscle
     private int id;
     @Column(name = "muscle_name", columnDefinition = "TEXT", nullable = false)
     private String name;
+    @Column(columnDefinition = "TEXT")
+    private String description;
     @Column(nullable = true)
     private String mediaPath;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    public Muscle(String name, String mediaPath, String description, MuscleGroup muscleGroup)
+    {
+        this.name = name;
+        this.description = description;
+        this.mediaPath = mediaPath;
+        this.muscleGroup = muscleGroup;
+        muscleGroup.addMuscle(this);
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private MuscleGroup muscleGroup;
 
     @OneToMany(mappedBy = "muscle", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
