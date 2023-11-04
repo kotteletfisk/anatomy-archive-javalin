@@ -10,23 +10,23 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Entity
-public class ExerciseTypeWrapper
+public class ExerciseType
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exercise_type_id")
     private int id;
-    private ExerciseType exerciseType;
+    private ExerciseTypeEnum exerciseTypeEnum;
 
     @ManyToMany
     private Set<Exercise> exercises = new HashSet<>();
 
-    public ExerciseTypeWrapper(ExerciseType exerciseType)
+    public ExerciseType(ExerciseTypeEnum exerciseTypeEnum)
     {
-        this.exerciseType = exerciseType;
+        this.exerciseTypeEnum = exerciseTypeEnum;
     }
 
-    public enum ExerciseType
+    public enum ExerciseTypeEnum
     {
         CALISTHENIC,
         WEIGHTLIFTING,

@@ -2,6 +2,7 @@ package dat.routes;
 
 import dat.controller.ExceptionController;
 import dat.controller.IndexController;
+import dat.controller.SearchController;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;
 import io.javalin.http.Context;
@@ -13,6 +14,7 @@ import static io.javalin.apibuilder.ApiBuilder.path;
 public class Routes {
 
     private final ExceptionController exceptionController = new ExceptionController();
+    private final SearchController searchController = new SearchController();
     private int count = 0;
 
     private final Logger LOGGER = LoggerFactory.getLogger(Routes.class);
@@ -27,6 +29,7 @@ public class Routes {
             app.before(this::requestInfoHandler);
 
             app.get("/", ctx -> new IndexController().handleIndex(ctx));
+            // app.get("/search", ctx -> );
 
             /*app.routes(() -> {
                 path("/", new UserRoutes().getRoutes());

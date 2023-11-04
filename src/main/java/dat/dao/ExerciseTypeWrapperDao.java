@@ -1,14 +1,14 @@
 package dat.dao;
 
 import dat.config.HibernateConfig;
-import dat.entities.ExerciseTypeWrapper;
+import dat.entities.ExerciseType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
-public class ExerciseTypeWrapperDao implements DAO<ExerciseTypeWrapper>
+public class ExerciseTypeWrapperDao implements DAO<ExerciseType>
 {
     private static ExerciseTypeWrapperDao instance;
     private static EntityManagerFactory emf;
@@ -27,24 +27,24 @@ public class ExerciseTypeWrapperDao implements DAO<ExerciseTypeWrapper>
     }
 
     @Override
-    public ExerciseTypeWrapper read(int id)
+    public ExerciseType read(int id)
     {
         return null;
     }
 
     @Override
-    public List<ExerciseTypeWrapper> readAll()
+    public List<ExerciseType> readAll()
     {
         return null;
     }
 
     @Override
-    public ExerciseTypeWrapper readByName(String exerciseType)
+    public ExerciseType readByName(String exerciseType)
     {
         exerciseType = exerciseType.toUpperCase();
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT e FROM ExerciseTypeWrapper e WHERE e.exerciseType = :exerciseType", ExerciseTypeWrapper.class)
+            return em.createQuery("SELECT e FROM ExerciseType e WHERE e.exerciseType = :exerciseType", ExerciseType.class)
                     .setParameter("exerciseType", exerciseType)
                     .getSingleResult();
         }
@@ -55,13 +55,13 @@ public class ExerciseTypeWrapperDao implements DAO<ExerciseTypeWrapper>
     }
 
     @Override
-    public ExerciseTypeWrapper update(ExerciseTypeWrapper exerciseTypeWrapper)
+    public ExerciseType update(ExerciseType exerciseType)
     {
         return null;
     }
 
     @Override
-    public ExerciseTypeWrapper create(ExerciseTypeWrapper exerciseTypeWrapper)
+    public ExerciseType create(ExerciseType exerciseType)
     {
         return null;
     }

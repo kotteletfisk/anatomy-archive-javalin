@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExerciseDaoTest
@@ -28,6 +30,10 @@ class ExerciseDaoTest
         try (EntityManager em = emf.createEntityManager())
         {
             em.getTransaction().begin();
+            em.createNativeQuery("ALTER SEQUENCE equipment_equipment_id_seq RESTART WITH 1").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE exercise_exercise_id_seq RESTART WITH 1").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE muscle_muscle_id_seq RESTART WITH 1").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE musclegroup_muscle_group_id_seq RESTART WITH 1").executeUpdate();
             em.persist(mg1);
             em.persist(mg2);
             em.persist(mg3);
@@ -91,12 +97,12 @@ class ExerciseDaoTest
     void createExerciseWithTypes()
     {
         Exercise exercise = new Exercise("Pull-up", "Pull yourself up on a bar", null, 5);
-        exercise.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.CALISTHENIC));
-        exercise.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.DYNAMIC));
+        exercise.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.CALISTHENIC));
+        exercise.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.DYNAMIC));
 
         Exercise exercise2 = new Exercise("Bar-curl", "Curl a bar in front of you", null, 5);
-        exercise2.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.WEIGHTLIFTING));
-        exercise2.addExerciseType(new ExerciseTypeWrapper(ExerciseTypeWrapper.ExerciseType.DYNAMIC));
+        exercise2.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.WEIGHTLIFTING));
+        exercise2.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.DYNAMIC));
 
         DAO<Exercise> dao = ExerciseDao.getInstance();
 
@@ -141,5 +147,24 @@ class ExerciseDaoTest
         DAO<Exercise> dao = ExerciseDao.getInstance();
 
         dao.create(exercise);
+    }
+
+    @Test
+    void addMuscleToExercise()
+    {
+        Exercise exercise = new Exercise("Deadlift", "The dealift exercise", null, 5);
+        Muscle muscle = new Muscle("Glutes", null, "Buttocks", mg3);
+
+        DAO<Muscle> muscleDao = MuscleDao.getInstance();
+        ExerciseDao dao = ExerciseDao.getInstance();
+
+        muscleDao.create(muscle);
+        dao.create(exercise);
+        ExerciseHasMuscles ehm = exercise.addMuscle(muscle);
+        dao.update(exercise);
+
+
+        List<Exercise> exercises = dao.getExercisesByMuscle(1);
+        assertEquals(1, exercises.size());
     }
 }

@@ -31,10 +31,10 @@ public class Exercise
     @Column(name = "exercise_intensity", nullable = false)
     private int intensity;
 
-    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<ExerciseHasMuscles> exerciseHasMuscles = new HashSet<>();
 
-    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 
     // TODO: Figure out if wrapping entity solution is better than this
@@ -42,7 +42,7 @@ public class Exercise
     @JoinTable(name = "exercisehastypes",
             joinColumns = @JoinColumn(name = "exercise_id"),
             inverseJoinColumns = @JoinColumn(name = "exercise_type_id"))
-    Set<ExerciseTypeWrapper> exerciseTypes = new HashSet<>();
+    Set<ExerciseType> exerciseTypes = new HashSet<>();
 
     public Exercise(String name, String description, String mediaPath, int intensity)
     {
@@ -52,14 +52,14 @@ public class Exercise
         this.intensity = intensity;
     }
 
-    public void addExerciseType(ExerciseTypeWrapper exerciseTypeWrapper)
+    public void addExerciseType(ExerciseType exerciseType)
     {
-        if (exerciseTypeWrapper == null)
+        if (exerciseType == null)
         {
             throw new NullPointerException("Added exercise type is null!");
         }
-        this.exerciseTypes.add(exerciseTypeWrapper);
-        exerciseTypeWrapper.getExercises().add(this);
+        this.exerciseTypes.add(exerciseType);
+        exerciseType.getExercises().add(this);
     }
 
     public ExerciseHasMuscles addMuscle(Muscle muscle)
@@ -69,13 +69,12 @@ public class Exercise
             throw new NullPointerException("Added muscle is null!");
         }
 
-        DAO<Muscle> dao = MuscleDao.getInstance();
-        Muscle found = dao.readByName(muscle.getName());
-
         ExerciseHasMuscles exerciseHasMuscles = new ExerciseHasMuscles();
         exerciseHasMuscles.setExercise(this);
-        exerciseHasMuscles.setMuscle(found != null ? found : muscle);
+        exerciseHasMuscles.setMuscle(muscle);
+
         this.exerciseHasMuscles.add(exerciseHasMuscles);
+        muscle.getExerciseHasMuscles().add(exerciseHasMuscles);
         return exerciseHasMuscles;
     }
 

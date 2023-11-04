@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.Exercise;
+import dat.entities.Muscle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -88,6 +89,29 @@ public class ExerciseDao implements DAO<Exercise>
             em.persist(exercise);
             em.getTransaction().commit();
             return exercise;
+        }
+    }
+
+    public List<Exercise> getExercisesByMuscle(int muscleId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseHasMuscles m WHERE m.id = :muscleId", Exercise.class)
+                    .setParameter("muscleId", muscleId)
+                    .getResultList();
+        }
+    }
+
+    public void addMuscleToExercise(int exerciseId, int muscleId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, exerciseId);
+            Muscle muscle = em.find(Muscle.class, muscleId);
+            exercise.addMuscle(muscle);
+            em.merge(exercise);
+            em.getTransaction().commit();
         }
     }
 }
