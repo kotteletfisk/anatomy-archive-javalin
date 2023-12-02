@@ -16,23 +16,14 @@ public class ExerciseType
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exercise_type_id")
     private int id;
-    private ExerciseTypeEnum exerciseTypeEnum;
+    @Column(name = "exercise_type", nullable = false)
+    private String typeName;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "exerciseTypes", fetch = FetchType.EAGER)
     private Set<Exercise> exercises = new HashSet<>();
 
-    public ExerciseType(ExerciseTypeEnum exerciseTypeEnum)
+    public ExerciseType(String typeName)
     {
-        this.exerciseTypeEnum = exerciseTypeEnum;
-    }
-
-    public enum ExerciseTypeEnum
-    {
-        CALISTHENIC,
-        WEIGHTLIFTING,
-        CARDIO,
-        STRETCHING,
-        ISOMETRIC,
-        DYNAMIC;
+        this.typeName = typeName;
     }
 }
