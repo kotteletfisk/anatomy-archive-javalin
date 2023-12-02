@@ -44,7 +44,7 @@ public class ExerciseTypeDao implements DAO<ExerciseType>
         exerciseType = exerciseType.toUpperCase();
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT e FROM ExerciseType e WHERE e.exerciseType = :exerciseType", ExerciseType.class)
+            return em.createQuery("SELECT e FROM ExerciseType e WHERE e.typeName = :exerciseType", ExerciseType.class)
                     .setParameter("exerciseType", exerciseType)
                     .getSingleResult();
         }

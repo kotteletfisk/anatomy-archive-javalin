@@ -24,6 +24,6 @@ public class ExerciseType
 
     public ExerciseType(String typeName)
     {
-        this.typeName = typeName;
+        this.typeName = typeName.toUpperCase();
     }
 }
