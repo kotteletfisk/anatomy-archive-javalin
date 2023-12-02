@@ -16,5 +16,7 @@ public class Main
 
         // DONE: Add wrapper entity for exercise type enum. Maybe use strings instead for easier additions later?
         // TODO: add routehandlers
+        // TODO: add controllers
+        // TODO: require authentication for POST, PUT, PATCH, DELETE
     }
 }

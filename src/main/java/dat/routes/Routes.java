@@ -13,7 +13,6 @@ import static io.javalin.apibuilder.ApiBuilder.path;
 public class Routes {
 
     private final ExceptionController exceptionController = new ExceptionController();
-    private final SearchController searchController = new SearchController();
     private int count = 0;
 
     private final Logger LOGGER = LoggerFactory.getLogger(Routes.class);
@@ -26,14 +25,12 @@ public class Routes {
     public EndpointGroup getRoutes(Javalin app) {
         return () -> {
             app.before(this::requestInfoHandler);
-            // app.get("/search", ctx -> );
 
-            /*app.routes(() -> {
-                path("/", new UserRoutes().getRoutes());
-            });*/
+            app.routes(() -> {
+                path("/", new ExerciseRoutes().getRoutes());
+            });
 
             app.after(ctx -> LOGGER.info(" Request {} - {} was handled with status code {}", count++, ctx.attribute("requestInfo"), ctx.status()));
-
             app.exception(Exception.class, exceptionController::exceptionHandler);
         };
     }

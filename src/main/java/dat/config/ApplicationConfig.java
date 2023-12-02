@@ -19,14 +19,14 @@ public class ApplicationConfig {
 
     private static void configuration(JavalinConfig config) {
         config.routing.contextPath = "/"; // base path for all routes
-        // config.http.defaultContentType = "application/json"; // default content type for requests
+        config.http.defaultContentType = "application/json"; // default content type for requests
         config.plugins.register(new RouteOverviewPlugin("/routes")); // enables route overview at /
-        config.staticFiles.add("/public"); // enables static files from /public
     }
 
     public static void startServer(Javalin app, int port) {
         Routes routes = new Routes();
         app.updateConfig(ApplicationConfig::configuration);
+        // HibernateConfig.setTest(true); // TODO: remove this line
         app.routes(routes.getRoutes(app));
         app.start(port);
     }
