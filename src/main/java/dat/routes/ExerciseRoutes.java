@@ -15,6 +15,7 @@ public class ExerciseRoutes
             get("/exercise/{id}", exerciseController::getById);
             post("/exercise", exerciseController::create);
             put("/exercise/{id}", exerciseController::update);
+            delete("/exercise/{id}", exerciseController::delete);
         };
     }
 }

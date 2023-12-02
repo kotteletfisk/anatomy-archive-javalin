@@ -3,6 +3,7 @@ package dat.dao;
 import dat.config.HibernateConfig;
 import dat.entities.Exercise;
 import dat.entities.Muscle;
+import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -122,6 +123,19 @@ public class ExerciseDao implements DAO<Exercise>
             return em.createQuery("SELECT COUNT(e) FROM Exercise e WHERE e.id = :id", Long.class)
                     .setParameter("id", id)
                     .getSingleResult() == 1;
+        }
+    }
+
+    @Override
+    public Exercise delete(int id) throws ApiException
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, id);
+            em.remove(exercise);
+            em.getTransaction().commit();
+            return exercise;
         }
     }
 }

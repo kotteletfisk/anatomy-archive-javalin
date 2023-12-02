@@ -17,4 +17,6 @@ public interface DAO<T>
     public T create(T t) throws ApiException;
 
     boolean exists(int id) throws ApiException;
+
+    T delete(int id) throws ApiException;
 }

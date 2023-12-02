@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.Equipment;
+import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -99,5 +100,11 @@ public class EquipmentDao implements DAO<Equipment>
                     .setParameter("id", id)
                     .getSingleResult() == 1;
         }
+    }
+
+    @Override
+    public Equipment delete(int id) throws ApiException
+    {
+        return null;
     }
 }

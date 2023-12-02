@@ -70,4 +70,12 @@ public class ExerciseController
         context.status(200);
         context.json(dto);
     }
+
+    public void delete(Context context) throws ApiException
+    {
+        int id = Integer.parseInt(context.pathParam("id"));
+        if (!exerciseDAO.exists(id)) throw new ApiException(404, "Exercise with id " + id + " not found");
+        Exercise exercise = exerciseDAO.delete(id);
+        context.status(204);
+    }
 }

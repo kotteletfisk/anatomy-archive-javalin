@@ -23,3 +23,7 @@ content-type: application/json
   "mediaPath": null,
   "intensity": 5
 }
+
+### delete
+
+DELETE http://localhost:7070/exercise/7

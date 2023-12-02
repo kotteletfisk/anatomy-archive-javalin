@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.MuscleGroup;
+import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -90,5 +91,11 @@ public class MuscleGroupDao implements DAO<MuscleGroup>
                     .setParameter("id", id)
                     .getSingleResult() == 1;
         }
+    }
+
+    @Override
+    public MuscleGroup delete(int id) throws ApiException
+    {
+        return null;
     }
 }

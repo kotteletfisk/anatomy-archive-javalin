@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.ExerciseType;
+import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -81,5 +82,11 @@ public class ExerciseTypeDao implements DAO<ExerciseType>
                     .setParameter("id", id)
                     .getSingleResult() == 1;
         }
+    }
+
+    @Override
+    public ExerciseType delete(int id) throws ApiException
+    {
+        return null;
     }
 }
