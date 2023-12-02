@@ -14,7 +14,7 @@ public class Main
                         Javalin.create(),
                         Integer.parseInt(ApplicationConfig.getProperty("javalin.port")));
 
-        // TODO: Add wrapper entity for exercise type enum. Maybe use strings instead for easier additions later?
+        // DONE: Add wrapper entity for exercise type enum. Maybe use strings instead for easier additions later?
         // TODO: add routehandlers
     }
 }

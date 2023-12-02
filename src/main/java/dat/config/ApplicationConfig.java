@@ -22,7 +22,6 @@ public class ApplicationConfig {
         // config.http.defaultContentType = "application/json"; // default content type for requests
         config.plugins.register(new RouteOverviewPlugin("/routes")); // enables route overview at /
         config.staticFiles.add("/public"); // enables static files from /public
-        JavalinThymeleaf.init(ThymeleafConfig.templateEngine()); // enables Thymeleaf
     }
 
     public static void startServer(Javalin app, int port) {
