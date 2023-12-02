@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.MuscleGroup;
+import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +40,14 @@ class MuscleGroupDaoTest
     void read()
     {
         DAO<MuscleGroup> dao = MuscleGroupDao.getInstance();
-        MuscleGroup muscleGroup = dao.read(1);
+        MuscleGroup muscleGroup = null;
+        try
+        {
+            muscleGroup = dao.read(1);
+        } catch (ApiException e)
+        {
+            fail(e.getMessage());
+        }
 
         assertEquals("Chest", muscleGroup.getName());
     }
@@ -48,14 +56,27 @@ class MuscleGroupDaoTest
     void readAll()
     {
         DAO<MuscleGroup> dao = MuscleGroupDao.getInstance();
-        assertEquals(6, dao.readAll().size());
+        try
+        {
+            assertEquals(6, dao.readAll().size());
+        } catch (ApiException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     void readByName()
     {
         DAO<MuscleGroup> dao = MuscleGroupDao.getInstance();
-        MuscleGroup muscleGroup = dao.readByName("Chest");
+        MuscleGroup muscleGroup = null;
+        try
+        {
+            muscleGroup = dao.readByName("Chest");
+        } catch (ApiException e)
+        {
+            fail(e.getMessage());
+        }
 
         assertEquals("Chest", muscleGroup.getName());
     }
@@ -64,10 +85,16 @@ class MuscleGroupDaoTest
     void update()
     {
         DAO<MuscleGroup> dao = MuscleGroupDao.getInstance();
-        MuscleGroup muscleGroup = dao.read(1);
-        muscleGroup.setDescription("New description");
-        dao.update(muscleGroup);
-
-        assertEquals("New description", dao.read(1).getDescription());
+        MuscleGroup muscleGroup = null;
+        try
+        {
+            muscleGroup = dao.read(1);
+            muscleGroup.setDescription("New description");
+            dao.update(muscleGroup);
+            assertEquals("New description", dao.read(1).getDescription());
+        } catch (ApiException e)
+        {
+            fail(e.getMessage());
+        }
     }
 }
