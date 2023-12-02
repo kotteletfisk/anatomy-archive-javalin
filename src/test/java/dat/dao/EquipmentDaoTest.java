@@ -99,5 +99,6 @@ class EquipmentDaoTest
         dao.create(exercise);
 
         assertEquals(3, EquipmentDao.getInstance().readAll().size());
+        assertEquals(1, dao.readAll().size());
     }
 }

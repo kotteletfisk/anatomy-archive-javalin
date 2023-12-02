@@ -2,7 +2,6 @@ package dat.entities;
 
 import dat.dao.DAO;
 import dat.dao.EquipmentDao;
-import dat.dao.MuscleDao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -63,6 +63,12 @@ public class ExerciseTypeWrapperDao implements DAO<ExerciseType>
     @Override
     public ExerciseType create(ExerciseType exerciseType)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(exerciseType);
+            em.getTransaction().commit();
+            return exerciseType;
+        }
     }
 }

@@ -97,17 +97,23 @@ class ExerciseDaoTest
     void createExerciseWithTypes()
     {
         Exercise exercise = new Exercise("Pull-up", "Pull yourself up on a bar", null, 5);
-        exercise.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.CALISTHENIC));
-        exercise.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.DYNAMIC));
+        ExerciseType cali = new ExerciseType("CALISTHENIC");
+        ExerciseType dyna = new ExerciseType("DYNAMIC");
+        DAO<ExerciseType> exerciseTypeDao = ExerciseTypeWrapperDao.getInstance();
+        exerciseTypeDao.create(cali);
+        exerciseTypeDao.create(dyna);
 
-        Exercise exercise2 = new Exercise("Bar-curl", "Curl a bar in front of you", null, 5);
+        exercise.addExerciseType(cali);
+        exercise.addExerciseType(dyna);
+
+        /*Exercise exercise2 = new Exercise("Bar-curl", "Curl a bar in front of you", null, 5);
         exercise2.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.WEIGHTLIFTING));
-        exercise2.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.DYNAMIC));
+        exercise2.addExerciseType(new ExerciseType(ExerciseType.ExerciseTypeEnum.DYNAMIC));*/
 
         DAO<Exercise> dao = ExerciseDao.getInstance();
 
         dao.create(exercise);
-        dao.create(exercise2);
+        // dao.create(exercise2);
     }
 
     @Test
