@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ExerciseController
 {
-    DAO<Exercise> exerciseDAO = ExerciseDao.getInstance();
+    ExerciseDao exerciseDAO = ExerciseDao.getInstance();
 
     public void getAll(Context context) throws Exception
     {
@@ -75,7 +75,15 @@ public class ExerciseController
     {
         int id = Integer.parseInt(context.pathParam("id"));
         if (!exerciseDAO.exists(id)) throw new ApiException(404, "Exercise with id " + id + " not found");
-        Exercise exercise = exerciseDAO.delete(id);
+        exerciseDAO.delete(id);
         context.status(204);
+    }
+
+    public void addMuscle(Context context)
+    {
+        int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
+        int muscleId = Integer.parseInt(context.queryParam("muscleId"));
+        exerciseDAO.addMuscleToExercise(exerciseId, muscleId);
+        context.status(201);
     }
 }
