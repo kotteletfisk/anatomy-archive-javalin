@@ -1,7 +1,6 @@
 package dat.routes;
 
 import dat.controller.ExceptionController;
-import dat.controller.IndexController;
 import dat.controller.SearchController;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;
@@ -27,8 +26,6 @@ public class Routes {
     public EndpointGroup getRoutes(Javalin app) {
         return () -> {
             app.before(this::requestInfoHandler);
-
-            app.get("/", ctx -> new IndexController().handleIndex(ctx));
             // app.get("/search", ctx -> );
 
             /*app.routes(() -> {
