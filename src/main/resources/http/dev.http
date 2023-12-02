@@ -1,1 +1,25 @@
 GET http://localhost:7070/exercise
+
+### create
+
+POST http://localhost:7070/exercise
+content-type: application/json
+
+{
+  "name": "Push Up",
+  "description": "Push Up description",
+  "mediaPath": null,
+  "intensity": 5
+}
+
+### update
+
+PUT http://localhost:7070/exercise/10
+content-type: application/json
+
+{
+  "name": "Push Up",
+  "description": "Push Up description, but updated right",
+  "mediaPath": null,
+  "intensity": 5
+}

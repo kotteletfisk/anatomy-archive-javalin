@@ -71,4 +71,10 @@ public class ExerciseTypeDao implements DAO<ExerciseType>
             return exerciseType;
         }
     }
+
+    @Override
+    public boolean exists(int id)
+    {
+        return false;
+    }
 }

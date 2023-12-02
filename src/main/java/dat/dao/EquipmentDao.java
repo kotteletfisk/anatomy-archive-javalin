@@ -89,4 +89,10 @@ public class EquipmentDao implements DAO<Equipment>
             return equipment;
         }
     }
+
+    @Override
+    public boolean exists(int id)
+    {
+        return false;
+    }
 }

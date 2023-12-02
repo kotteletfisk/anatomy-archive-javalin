@@ -80,4 +80,10 @@ public class MuscleGroupDao implements DAO<MuscleGroup>
             return muscleGroup;
         }
     }
+
+    @Override
+    public boolean exists(int id)
+    {
+        return false;
+    }
 }

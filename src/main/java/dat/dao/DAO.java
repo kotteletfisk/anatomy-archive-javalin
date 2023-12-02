@@ -13,4 +13,6 @@ public interface DAO<T>
     public T update(T t);
 
     public T create(T t);
+
+    boolean exists(int id);
 }

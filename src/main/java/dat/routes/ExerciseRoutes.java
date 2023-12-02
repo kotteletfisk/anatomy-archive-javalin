@@ -9,9 +9,12 @@ public class ExerciseRoutes
 
     public EndpointGroup getRoutes()
     {
-        return () -> {
+        return () ->
+        {
             get("/exercise", exerciseController::getAll);
             get("/exercise/{id}", exerciseController::getById);
+            post("/exercise", exerciseController::create);
+            put("/exercise/{id}", exerciseController::update);
         };
     }
 }

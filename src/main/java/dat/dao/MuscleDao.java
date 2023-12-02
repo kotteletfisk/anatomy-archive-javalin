@@ -87,4 +87,10 @@ public class MuscleDao implements DAO<Muscle>
             return muscle;
         }
     }
+
+    @Override
+    public boolean exists(int id)
+    {
+        return false;
+    }
 }

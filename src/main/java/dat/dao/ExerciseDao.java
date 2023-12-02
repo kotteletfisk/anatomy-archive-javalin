@@ -114,4 +114,14 @@ public class ExerciseDao implements DAO<Exercise>
             em.getTransaction().commit();
         }
     }
+
+    public boolean exists(int id)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT COUNT(e) FROM Exercise e WHERE e.id = :id", Long.class)
+                    .setParameter("id", id)
+                    .getSingleResult() == 1;
+        }
+    }
 }

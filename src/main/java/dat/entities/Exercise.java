@@ -2,6 +2,7 @@ package dat.entities;
 
 import dat.dao.DAO;
 import dat.dao.EquipmentDao;
+import dat.dto.ExerciseDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,6 @@ public class Exercise
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
 
-    // TODO: Figure out if wrapping entity solution is better than this
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "exercisehastypes",
             joinColumns = @JoinColumn(name = "exercise_id"),
@@ -49,6 +49,15 @@ public class Exercise
         this.description = description;
         this.mediaPath = mediaPath;
         this.intensity = intensity;
+    }
+
+    public Exercise(ExerciseDTO dto)
+    {
+        if (dto.getId() != 0) this.id = dto.getId();
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.mediaPath = dto.getMediaPath();
+        this.intensity = dto.getIntensity();
     }
 
     public void addExerciseType(ExerciseType exerciseType)
