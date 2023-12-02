@@ -1,7 +1,6 @@
 package dat.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,5 +34,5 @@ public class Equipment
     }
 
     @OneToMany(mappedBy = "equipment", fetch = FetchType.EAGER)
-    Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
+    Set<ExerciseHasEquipment> exerciseHasEquipmentRelation = new HashSet<>();
 }

@@ -96,7 +96,7 @@ public class ExerciseDao implements DAO<Exercise>
     {
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseHasMuscles m WHERE m.id = :muscleId", Exercise.class)
+            return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseHasMusclesRelation m WHERE m.id = :muscleId", Exercise.class)
                     .setParameter("muscleId", muscleId)
                     .getResultList();
         }

@@ -91,6 +91,11 @@ public class MuscleDao implements DAO<Muscle>
     @Override
     public boolean exists(int id)
     {
-        return false;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT COUNT(m) FROM Muscle m WHERE m.id = :id", Long.class)
+                    .setParameter("id", id)
+                    .getSingleResult() == 1;
+        }
     }
 }

@@ -93,6 +93,11 @@ public class EquipmentDao implements DAO<Equipment>
     @Override
     public boolean exists(int id)
     {
-        return false;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT COUNT(e) FROM Equipment e WHERE e.id = :id", Long.class)
+                    .setParameter("id", id)
+                    .getSingleResult() == 1;
+        }
     }
 }

@@ -84,6 +84,11 @@ public class MuscleGroupDao implements DAO<MuscleGroup>
     @Override
     public boolean exists(int id)
     {
-        return false;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT COUNT(m) FROM MuscleGroup m WHERE m.id = :id", Long.class)
+                    .setParameter("id", id)
+                    .getSingleResult() == 1;
+        }
     }
 }

@@ -4,6 +4,7 @@ import dat.dao.DAO;
 import dat.dao.ExerciseDao;
 import dat.dto.ExerciseDTO;
 import dat.entities.Exercise;
+import dat.exception.ApiException;
 import io.javalin.http.Context;
 
 import java.util.List;
@@ -12,69 +13,56 @@ public class ExerciseController
 {
     DAO<Exercise> exerciseDAO = ExerciseDao.getInstance();
 
-    public void getAll(Context context)
+    public void getAll(Context context) throws Exception
     {
         List<Exercise> exercises = exerciseDAO.readAll();
+        if (exercises.isEmpty()) throw new ApiException(500, "Problem with database");
         List<ExerciseDTO> dtos = ExerciseDTO.toExerciseDTOList(exercises);
         context.status(200);
         context.json(dtos);
     }
 
-    public void getById(Context context)
+    public void getById(Context context) throws ApiException
     {
         int id = Integer.parseInt(context.pathParam("id"));
-        if (!exerciseDAO.exists(id))
-        {
-            context.status(404);
-            context.json("Exercise with id " + id + " not found");
-            return;
-        }
+        if (!exerciseDAO.exists(id)) throw new ApiException(404, "Exercise with id " + id + " not found");
         Exercise exercise = exerciseDAO.read(id);
         ExerciseDTO dto = new ExerciseDTO(exercise);
         context.status(200);
         context.json(dto);
     }
 
-    public void create(Context context)
+    public void create(Context context) throws ApiException
     {
         ExerciseDTO dto;
         try
         {
             dto = context.bodyAsClass(ExerciseDTO.class);
         }
-        catch (Exception e) // TODO: change to ApiException
+        catch (Exception e)
         {
-            context.status(400);
-            context.json(e.getMessage());
-            return;
+            throw new ApiException(400, e.getMessage());
         }
-
         Exercise exercise = exerciseDAO.create(new Exercise(dto));
         dto = new ExerciseDTO(exercise);
         context.status(201);
         context.json(dto);
     }
 
-    public void update(Context context)
+    public void update(Context context) throws ApiException
     {
         int id = Integer.parseInt(context.pathParam("id"));
         ExerciseDTO dto;
 
-        if (!exerciseDAO.exists(id))
-        {
-            context.status(404);
-            context.json("Exercise with id " + id + " not found");
-            return;
-        }
+        if (!exerciseDAO.exists(id)) throw new ApiException(404, "Exercise with id " + id + " not found");
+
         try
         {
             dto = context.bodyAsClass(ExerciseDTO.class);
         }
-        catch (Exception e) // TODO: change to ApiException
+        catch (Exception e)
         {
-            context.status(400);
-            context.json(e.getMessage());
-            return;
+            throw new ApiException(400, e.getMessage());
         }
         Exercise exercise = new Exercise(dto);
         exercise.setId(id);

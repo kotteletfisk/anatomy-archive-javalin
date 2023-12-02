@@ -1,18 +1,20 @@
 package dat.dao;
 
+import dat.exception.ApiException;
+
 import java.util.List;
 
 public interface DAO<T>
 {
-    public T read(int id);
+    public T read(int id) throws ApiException;
 
-    public List<T> readAll();
+    public List<T> readAll() throws ApiException;
 
-    public T readByName(String name);
+    public T readByName(String name) throws ApiException;
 
-    public T update(T t);
+    public T update(T t) throws ApiException;
 
-    public T create(T t);
+    public T create(T t) throws ApiException;
 
-    boolean exists(int id);
+    boolean exists(int id) throws ApiException;
 }

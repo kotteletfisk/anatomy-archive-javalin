@@ -2,6 +2,7 @@ package dat.routes;
 
 import dat.controller.ExceptionController;
 import dat.controller.SearchController;
+import dat.exception.ApiException;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;
 import io.javalin.http.Context;
@@ -31,6 +32,9 @@ public class Routes {
             });
 
             app.after(ctx -> LOGGER.info(" Request {} - {} was handled with status code {}", count++, ctx.attribute("requestInfo"), ctx.status()));
+
+            // Exception handling
+            app.exception(ApiException.class, exceptionController::apiExceptionHandler);
             app.exception(Exception.class, exceptionController::exceptionHandler);
         };
     }

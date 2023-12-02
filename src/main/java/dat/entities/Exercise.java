@@ -1,7 +1,5 @@
 package dat.entities;
 
-import dat.dao.DAO;
-import dat.dao.EquipmentDao;
 import dat.dto.ExerciseDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,10 +30,10 @@ public class Exercise
     private int intensity;
 
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<ExerciseHasMuscles> exerciseHasMuscles = new HashSet<>();
+    Set<ExerciseHasMuscles> exerciseHasMusclesRelation = new HashSet<>();
 
     @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<ExerciseHasEquipment> exerciseHasEquipment = new HashSet<>();
+    Set<ExerciseHasEquipment> exerciseHasEquipmentRelation = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "exercisehastypes",
@@ -81,7 +79,7 @@ public class Exercise
         exerciseHasMuscles.setExercise(this);
         exerciseHasMuscles.setMuscle(muscle);
 
-        this.exerciseHasMuscles.add(exerciseHasMuscles);
+        this.exerciseHasMusclesRelation.add(exerciseHasMuscles);
         muscle.getExerciseHasMuscles().add(exerciseHasMuscles);
         return exerciseHasMuscles;
     }
@@ -93,19 +91,17 @@ public class Exercise
             throw new NullPointerException("Added equipment is null!");
         }
 
-        DAO<Equipment> dao = EquipmentDao.getInstance();
-        Equipment found = dao.readByName(equipment.getName());
-
         ExerciseHasEquipment exerciseHasEquipment = new ExerciseHasEquipment();
         exerciseHasEquipment.setExercise(this);
-        exerciseHasEquipment.setEquipment(found != null ? found : equipment);
-        this.exerciseHasEquipment.add(exerciseHasEquipment);
+        exerciseHasEquipment.setEquipment(equipment);
+        this.exerciseHasEquipmentRelation.add(exerciseHasEquipment);
+        equipment.getExerciseHasEquipmentRelation().add(exerciseHasEquipment);
         return exerciseHasEquipment;
     }
 
     public Set<Muscle> getMuscles()
     {
-        return exerciseHasMuscles.stream()
+        return exerciseHasMusclesRelation.stream()
                 .map(ExerciseHasMuscles::getMuscle)
                 .collect(java.util.stream.Collectors.toSet());
     }

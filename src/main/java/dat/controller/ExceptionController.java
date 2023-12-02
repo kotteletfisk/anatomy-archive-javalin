@@ -1,5 +1,6 @@
 package dat.controller;
 
+import dat.exception.ApiException;
 import dat.routes.Routes;
 import dat.exception.Message;
 import io.javalin.http.Context;
@@ -20,5 +21,12 @@ public class ExceptionController {
 
         ctx.status(500);
         ctx.json(new Message(500, e.getMessage()));
+    }
+
+    public void apiExceptionHandler(ApiException e, Context ctx)
+    {
+        LOGGER.error(ctx.attribute("requestInfo") + " " + ctx.res().getStatus() + " " + e.getMessage());
+        ctx.status(e.getStatusCode());
+        ctx.json(new Message(e.getStatusCode(), e.getMessage()));
     }
 }
