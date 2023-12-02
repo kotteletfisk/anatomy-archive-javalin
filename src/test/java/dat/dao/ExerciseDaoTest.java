@@ -99,7 +99,7 @@ class ExerciseDaoTest
         Exercise exercise = new Exercise("Pull-up", "Pull yourself up on a bar", null, 5);
         ExerciseType cali = new ExerciseType("CALISTHENIC");
         ExerciseType dyna = new ExerciseType("DYNAMIC");
-        DAO<ExerciseType> exerciseTypeDao = ExerciseTypeWrapperDao.getInstance();
+        DAO<ExerciseType> exerciseTypeDao = ExerciseTypeDao.getInstance();
         exerciseTypeDao.create(cali);
         exerciseTypeDao.create(dyna);
 

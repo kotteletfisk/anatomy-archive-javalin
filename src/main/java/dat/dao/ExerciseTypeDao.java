@@ -8,20 +8,20 @@ import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
-public class ExerciseTypeWrapperDao implements DAO<ExerciseType>
+public class ExerciseTypeDao implements DAO<ExerciseType>
 {
-    private static ExerciseTypeWrapperDao instance;
+    private static ExerciseTypeDao instance;
     private static EntityManagerFactory emf;
-    private ExerciseTypeWrapperDao()
+    private ExerciseTypeDao()
     {
         emf = HibernateConfig.getEntityManagerFactory();
     }
 
-    public static ExerciseTypeWrapperDao getInstance()
+    public static ExerciseTypeDao getInstance()
     {
         if (instance == null)
         {
-            instance = new ExerciseTypeWrapperDao();
+            instance = new ExerciseTypeDao();
         }
         return instance;
     }
