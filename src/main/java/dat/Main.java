@@ -15,9 +15,13 @@ public class Main
                         Integer.parseInt(ApplicationConfig.getProperty("javalin.port")));
 
         // DONE: Add wrapper entity for exercise type enum. Maybe use strings instead for easier additions later?
+        // DONE: add error handling
         // TODO: add routehandlers
+           // - Exercise (DONE)
+           // - Muscle
+           // - MuscleGroup
+           // - Equipment
         // TODO: add controllers
-        // TODO: add error handling
         // TODO: require authentication for POST, PUT, PATCH, DELETE
     }
 }
