@@ -27,9 +27,9 @@ public class Populate
         MuscleGroup mg5 = new MuscleGroup("Shoulders", null, "Shoulder muscles");
         MuscleGroup mg6 = new MuscleGroup("Abdomen", null, "Abdominal muscles");
 
-        Muscle muscle = new Muscle("Pectoralis major", null, "Chest muscle", mg1);
-        Muscle muscle2 = new Muscle("Latissimus dorsi", null, "Back muscle", mg2);
-        Muscle muscle3 = new Muscle("Quadriceps femoris", null, "Leg muscle", mg3);
+        Muscle muscle = new Muscle("Pectoralis major", null, "Chest muscle");
+        Muscle muscle2 = new Muscle("Latissimus dorsi", null, "Back muscle");
+        Muscle muscle3 = new Muscle("Quadriceps femoris", null, "Leg muscle");
 
         Exercise exercise = new Exercise("Squat", "Squat down below the knees", null, 5);
         Exercise exercise2 = new Exercise("Deadlift", "The dealift exercise", null, 5);
