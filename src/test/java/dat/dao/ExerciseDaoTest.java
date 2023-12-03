@@ -3,9 +3,11 @@ package dat.dao;
 import dat.config.HibernateConfig;
 import dat.entities.*;
 import dat.exception.ApiException;
+import dat.util.Populate;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -21,32 +23,12 @@ class ExerciseDaoTest
     static MuscleGroup mg5 = new MuscleGroup("Shoulders", null, "Shoulder muscles");
     static MuscleGroup mg6 = new MuscleGroup("Abdomen", null, "Abdominal muscles");
 
-    @BeforeAll
-    static void setUp()
+    @BeforeEach
+    void setUp()
     {
         // TODO: Fix Setup, truncate tables, reset sequences
         HibernateConfig.setTest(true);
-        EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
-
-        try (EntityManager em = emf.createEntityManager())
-        {
-            em.getTransaction().begin();
-            em.createNativeQuery("ALTER SEQUENCE equipment_equipment_id_seq RESTART WITH 1").executeUpdate();
-            em.createNativeQuery("ALTER SEQUENCE exercise_exercise_id_seq RESTART WITH 1").executeUpdate();
-            em.createNativeQuery("ALTER SEQUENCE muscle_muscle_id_seq RESTART WITH 1").executeUpdate();
-            em.createNativeQuery("ALTER SEQUENCE musclegroup_muscle_group_id_seq RESTART WITH 1").executeUpdate();
-            em.persist(mg1);
-            em.persist(mg2);
-            em.persist(mg3);
-            em.persist(mg4);
-            em.persist(mg5);
-            em.persist(mg6);
-            em.getTransaction().commit();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        Populate.main(null);
     }
 
     @Test
@@ -57,7 +39,7 @@ class ExerciseDaoTest
         try
         {
             dao.create(new Exercise("Pull-up", "Pull yourself up on a bar", null, 5));
-            Exercise exercise = dao.read(1);
+            Exercise exercise = dao.read(6);
             assertEquals("Pull-up", exercise.getName());
         } catch (ApiException e)
         {
@@ -75,7 +57,7 @@ class ExerciseDaoTest
         {
             dao.create(new Exercise("Pull-up", "Pull yourself up on a bar", null, 5));
             dao.create(new Exercise("Bar-curl", "Curl a bar in front of you", null, 5));
-            assertEquals(2, dao.readAll().size());
+            assertEquals(8, dao.readAll().size());
         } catch (ApiException e)
         {
             fail(e.getMessage());
@@ -90,11 +72,11 @@ class ExerciseDaoTest
         try
         {
             dao.create(new Exercise("Pull-up", "Pull yourself up on a bar", null, 5));
-            Exercise exercise = dao.read(1);
+            Exercise exercise = dao.read(6);
             exercise.setDescription("Pull-up with a twist");
             dao.update(exercise);
 
-            assertEquals("Pull-up with a twist", dao.read(1).getDescription());
+            assertEquals("Pull-up with a twist", dao.read(6).getDescription());
         } catch (ApiException e)
         {
             fail(e.getMessage());
@@ -151,8 +133,8 @@ class ExerciseDaoTest
     {
         Exercise exercise = new Exercise("Squat", "Squat down below the knees", null, 5);
 
-        Muscle muscle = new Muscle("Glutes", null, "Buttocks", mg3);
-        Muscle muscle1 = new Muscle("Hamstrings", null, "Back of the thigh", mg3);
+        Muscle muscle = new Muscle("Glutes", null, "Buttocks");
+        Muscle muscle1 = new Muscle("Hamstrings", null, "Back of the thigh");
 
         DAO<Muscle> muscleDao = MuscleDao.getInstance();
         try
@@ -200,23 +182,20 @@ class ExerciseDaoTest
     @Test
     void addMuscleToExercise()
     {
-        Exercise exercise = new Exercise("Deadlift", "The dealift exercise", null, 5);
-        Muscle muscle = new Muscle("Glutes", null, "Buttocks", mg3);
+        ExerciseDao exerciseDao = ExerciseDao.getInstance();
 
-        DAO<Muscle> muscleDao = MuscleDao.getInstance();
-        ExerciseDao dao = ExerciseDao.getInstance();
+        exerciseDao.addMuscleToExercise(1,1);
+        List<Exercise> exercises = exerciseDao.getExercisesByMuscle(1);
+        assertEquals(1, exercises.size());
+    }
 
-        try
-        {
-            muscleDao.create(muscle);
-            dao.create(exercise);
-            ExerciseHasMuscles ehm = exercise.addMuscle(muscle);
-            dao.update(exercise);
-            List<Exercise> exercises = dao.getExercisesByMuscle(1);
-            assertEquals(1, exercises.size());
-        } catch (ApiException e)
-        {
-            fail(e.getMessage());
-        }
+    @Test
+    void addTypeToExercise()
+    {
+        ExerciseDao exerciseDao = ExerciseDao.getInstance();
+
+        exerciseDao.addTypeToExercise(1,1);
+        List<Exercise> exercises = exerciseDao.getExercisesByType(1);
+        assertEquals(1, exercises.size());
     }
 }

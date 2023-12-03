@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.config.HibernateConfig;
 import dat.entities.Exercise;
+import dat.entities.ExerciseType;
 import dat.entities.Muscle;
 import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
@@ -135,6 +136,28 @@ public class ExerciseDao implements DAO<Exercise>
             em.remove(exercise);
             em.getTransaction().commit();
             return exercise;
+        }
+    }
+
+    public void addTypeToExercise(int exerciseId, int typeId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, exerciseId);
+            ExerciseType exerciseType = em.find(ExerciseType.class, typeId);
+            exercise.addExerciseType(exerciseType);
+            em.getTransaction().commit();
+        }
+    }
+
+    public List<Exercise> getExercisesByType(int typeId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseTypes t WHERE t.id = :typeId", Exercise.class)
+                    .setParameter("typeId", typeId)
+                    .getResultList();
         }
     }
 }

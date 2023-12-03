@@ -25,13 +25,11 @@ public class Muscle
     @Column(nullable = true)
     private String mediaPath;
 
-    public Muscle(String name, String mediaPath, String description, MuscleGroup muscleGroup)
+    public Muscle(String name, String mediaPath, String description)
     {
         this.name = name;
         this.description = description;
         this.mediaPath = mediaPath;
-        this.muscleGroup = muscleGroup;
-        muscleGroup.addMuscle(this);
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -96,12 +96,24 @@ public class ExerciseController
         context.status(201);
     }
 
-    public void getMuscle(Context context) throws Exception, ApiException
+    public void getMuscle(Context context) throws Exception
     {
         int exerciseId = Integer.parseInt(context.pathParam("id"));
         if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
         List<Muscle> muscles = muscleDAO.getMusclesByExercise(exerciseId);
         context.status(200);
         context.json(MuscleDTO.toMuscleDTOList(muscles));
+    }
+
+    public void addType(Context context) throws ApiException
+    {
+        int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
+        int typeId = Integer.parseInt(context.queryParam("typeId"));
+
+        if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
+        if (!exerciseDAO.exists(typeId)) throw new ApiException(404, "Type with id " + typeId + " not found");
+
+        exerciseDAO.addTypeToExercise(exerciseId, typeId);
+        context.status(201);
     }
 }

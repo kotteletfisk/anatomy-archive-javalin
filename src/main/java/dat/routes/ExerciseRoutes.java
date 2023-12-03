@@ -18,6 +18,7 @@ public class ExerciseRoutes
             delete("/exercise/{id}", exerciseController::delete);
             post("/exercise/muscle", exerciseController::addMuscle);
             get("/exercise/{id}/muscle", exerciseController::getMuscle);
+            post("/exercise/type", exerciseController::addType);
         };
     }
 }
