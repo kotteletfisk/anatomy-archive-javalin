@@ -25,7 +25,7 @@ public class MuscleDTO
 
     public MuscleDTO(Muscle muscle)
     {
-        if (id != 0) this.id = muscle.getId();
+        if (muscle.getId() != 0) this.id = muscle.getId();
         this.name = muscle.getName();
         this.description = muscle.getDescription();
     }

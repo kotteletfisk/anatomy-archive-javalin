@@ -128,7 +128,7 @@ class ExerciseControllerTest
     {
         given()
                 .when()
-                .post(BASE_URL + "exercise/muscle?exerciseId=1&muscleId=1")
+                .post(BASE_URL + "exercise/muscle?exerciseId=2&muscleId=2")
                 .then()
                 .log().all()
                 .statusCode(201);
@@ -136,7 +136,7 @@ class ExerciseControllerTest
         // Check that it was added
         List<MuscleDTO> dtos = given()
                 .when()
-                .get(BASE_URL + "exercise/1/muscle")
+                .get(BASE_URL + "exercise/2/muscle")
                 .then()
                 .log().all()
                 .statusCode(200)

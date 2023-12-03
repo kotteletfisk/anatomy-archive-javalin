@@ -11,6 +11,7 @@ import dat.exception.ApiException;
 import io.javalin.http.Context;
 
 import java.util.List;
+import java.util.Set;
 
 public class ExerciseController
 {
@@ -95,11 +96,10 @@ public class ExerciseController
         context.status(201);
     }
 
-    public void getMuscle(Context context) throws ApiException
+    public void getMuscle(Context context) throws Exception, ApiException
     {
         int exerciseId = Integer.parseInt(context.pathParam("id"));
         if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
-
         List<Muscle> muscles = muscleDAO.getMusclesByExercise(exerciseId);
         context.status(200);
         context.json(MuscleDTO.toMuscleDTOList(muscles));

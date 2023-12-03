@@ -1,6 +1,7 @@
 package dat.dao;
 
 import dat.config.HibernateConfig;
+import dat.entities.Exercise;
 import dat.entities.Muscle;
 import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
@@ -8,6 +9,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
+import java.util.Set;
 
 public class MuscleDao implements DAO<Muscle>
 {
@@ -113,13 +115,13 @@ public class MuscleDao implements DAO<Muscle>
         }
     }
 
-    public List<Muscle> getMusclesByExercise(int exerciseId)
+    public List<Muscle> getMusclesByExercise(int exerciseId) throws Exception
     {
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT m FROM Muscle m JOIN m.exerciseHasMusclesRelation e WHERE e.id = :exerciseId", Muscle.class)
-                    .setParameter("exerciseId", exerciseId)
-                    .getResultList();
+            Exercise found = em.find(Exercise.class, exerciseId);
+            if (found == null) throw new Exception("Exercise with id " + exerciseId + " does not exist!");
+            return found.getMuscles(); // TODO: now returns loaded entities. Works, but should fetch directly from db.
         }
     }
 }

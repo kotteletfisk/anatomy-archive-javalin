@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -99,10 +100,10 @@ public class Exercise
         return exerciseHasEquipment;
     }
 
-    public Set<Muscle> getMuscles()
+    public List<Muscle> getMuscles()
     {
         return exerciseHasMusclesRelation.stream()
                 .map(ExerciseHasMuscles::getMuscle)
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(java.util.stream.Collectors.toList());
     }
 }
