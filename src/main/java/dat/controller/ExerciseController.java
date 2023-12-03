@@ -86,4 +86,9 @@ public class ExerciseController
         exerciseDAO.addMuscleToExercise(exerciseId, muscleId);
         context.status(201);
     }
+
+    public void getMuscle(Context context)
+    {
+
+    }
 }

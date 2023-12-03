@@ -13,7 +13,7 @@ public class Populate
 {
     public static void main(String[] args)
     {
-        // Populate the database with data
+        // Populate the database for testing
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
         DAO<MuscleGroup> muscleGroupDAO = MuscleGroupDao.getInstance();
