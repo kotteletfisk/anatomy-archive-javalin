@@ -37,6 +37,7 @@ class MuscleDaoTest
         {
             fail(e.getMessage());
         }
+        assertEquals(1, found.size());
         System.out.println(found);
     }
 }

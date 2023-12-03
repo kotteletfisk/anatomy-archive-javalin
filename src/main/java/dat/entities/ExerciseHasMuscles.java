@@ -17,8 +17,10 @@ public class ExerciseHasMuscles
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "muscle_id")
     private Muscle muscle;
 }

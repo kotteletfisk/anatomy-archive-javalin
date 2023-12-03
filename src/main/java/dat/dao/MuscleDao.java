@@ -119,9 +119,9 @@ public class MuscleDao implements DAO<Muscle>
     {
         try (EntityManager em = emf.createEntityManager())
         {
-            Exercise found = em.find(Exercise.class, exerciseId);
-            if (found == null) throw new Exception("Exercise with id " + exerciseId + " does not exist!");
-            return found.getMuscles(); // TODO: now returns loaded entities. Works, but should fetch directly from db.
+            return em.createQuery("SELECT m FROM Muscle m JOIN m.exerciseHasMusclesRelation e WHERE e.exercise.id = :exerciseId", Muscle.class)
+                    .setParameter("exerciseId", exerciseId)
+                    .getResultList();
         }
     }
 }
