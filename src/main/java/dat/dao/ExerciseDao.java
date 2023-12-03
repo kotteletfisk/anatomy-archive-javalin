@@ -111,7 +111,6 @@ public class ExerciseDao implements DAO<Exercise>
             Exercise exercise = em.find(Exercise.class, exerciseId);
             Muscle muscle = em.find(Muscle.class, muscleId);
             exercise.addMuscle(muscle);
-            em.merge(exercise);
             em.getTransaction().commit();
         }
     }

@@ -103,6 +103,23 @@ public class MuscleDao implements DAO<Muscle>
     @Override
     public Muscle delete(int id) throws ApiException
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Muscle muscle = em.find(Muscle.class, id);
+            em.remove(muscle);
+            em.getTransaction().commit();
+            return muscle;
+        }
+    }
+
+    public List<Muscle> getMusclesByExercise(int exerciseId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM Muscle m JOIN m.exerciseHasMusclesRelation e WHERE e.id = :exerciseId", Muscle.class)
+                    .setParameter("exerciseId", exerciseId)
+                    .getResultList();
+        }
     }
 }

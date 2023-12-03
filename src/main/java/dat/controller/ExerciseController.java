@@ -2,8 +2,11 @@ package dat.controller;
 
 import dat.dao.DAO;
 import dat.dao.ExerciseDao;
+import dat.dao.MuscleDao;
 import dat.dto.ExerciseDTO;
+import dat.dto.MuscleDTO;
 import dat.entities.Exercise;
+import dat.entities.Muscle;
 import dat.exception.ApiException;
 import io.javalin.http.Context;
 
@@ -12,6 +15,7 @@ import java.util.List;
 public class ExerciseController
 {
     ExerciseDao exerciseDAO = ExerciseDao.getInstance();
+    MuscleDao muscleDAO = MuscleDao.getInstance();
 
     public void getAll(Context context) throws Exception
     {
@@ -79,16 +83,25 @@ public class ExerciseController
         context.status(204);
     }
 
-    public void addMuscle(Context context)
+    public void addMuscle(Context context) throws ApiException
     {
         int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
         int muscleId = Integer.parseInt(context.queryParam("muscleId"));
+
+        if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
+        if (!muscleDAO.exists(muscleId)) throw new ApiException(404, "Muscle with id " + muscleId + " not found");
+
         exerciseDAO.addMuscleToExercise(exerciseId, muscleId);
         context.status(201);
     }
 
-    public void getMuscle(Context context)
+    public void getMuscle(Context context) throws ApiException
     {
+        int exerciseId = Integer.parseInt(context.pathParam("id"));
+        if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
 
+        List<Muscle> muscles = muscleDAO.getMusclesByExercise(exerciseId);
+        context.status(200);
+        context.json(MuscleDTO.toMuscleDTOList(muscles));
     }
 }

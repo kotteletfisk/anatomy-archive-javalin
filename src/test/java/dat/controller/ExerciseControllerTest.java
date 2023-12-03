@@ -2,6 +2,7 @@ package dat.controller;
 
 import dat.config.HibernateConfig;
 import dat.dto.ExerciseDTO;
+import dat.dto.MuscleDTO;
 import dat.entities.Exercise;
 import dat.util.Populate;
 import io.restassured.RestAssured;
@@ -21,7 +22,7 @@ class ExerciseControllerTest
     @BeforeEach
     void setUp()
     {
-        HibernateConfig.setTest(true);
+        HibernateConfig.setTest(false);
         Populate.main(null);
     }
 
@@ -123,17 +124,24 @@ class ExerciseControllerTest
     }
 
     @Test
-    void addMuscleToExercise()
+    void addMuscleToExercise() // TODO: fails
     {
         given()
                 .when()
-                .post(BASE_URL + "/exercise/muscle?exerciseId=1&muscleId=1")
+                .post(BASE_URL + "exercise/muscle?exerciseId=1&muscleId=1")
                 .then()
                 .log().all()
                 .statusCode(201);
 
         // Check that it was added
+        List<MuscleDTO> dtos = given()
+                .when()
+                .get(BASE_URL + "exercise/1/muscle")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract().body().jsonPath().getList("", MuscleDTO.class);
 
-
+        assertThat(dtos.size(), equalTo(1));
     }
 }

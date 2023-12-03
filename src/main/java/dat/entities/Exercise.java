@@ -80,7 +80,7 @@ public class Exercise
         exerciseHasMuscles.setMuscle(muscle);
 
         this.exerciseHasMusclesRelation.add(exerciseHasMuscles);
-        muscle.getExerciseHasMuscles().add(exerciseHasMuscles);
+        muscle.getExerciseHasMusclesRelation().add(exerciseHasMuscles);
         return exerciseHasMuscles;
     }
 

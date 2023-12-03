@@ -50,10 +50,11 @@ public class Populate
         {
             em.getTransaction().begin();
             em.createNativeQuery("DELETE FROM exercisehasequipment").executeUpdate();
+            em.createNativeQuery("DELETE FROM exercisehasmuscles").executeUpdate();
             em.createQuery("DELETE FROM Equipment").executeUpdate();
             em.createQuery("DELETE FROM Exercise").executeUpdate();
-            em.createQuery("DELETE FROM MuscleGroup").executeUpdate();
             em.createQuery("DELETE FROM Muscle").executeUpdate();
+            em.createQuery("DELETE FROM MuscleGroup").executeUpdate();
             em.createQuery("DELETE FROM ExerciseType").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE equipment_equipment_id_seq RESTART WITH 1").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE exercise_exercise_id_seq RESTART WITH 1").executeUpdate();

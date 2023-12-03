@@ -37,6 +37,6 @@ public class Muscle
     @ManyToOne(fetch = FetchType.EAGER)
     private MuscleGroup muscleGroup;
 
-    @OneToMany(mappedBy = "muscle", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    Set<ExerciseHasMuscles> exerciseHasMuscles = new HashSet<>();
+    @OneToMany(mappedBy = "muscle", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<ExerciseHasMuscles> exerciseHasMusclesRelation = new HashSet<>();
 }
