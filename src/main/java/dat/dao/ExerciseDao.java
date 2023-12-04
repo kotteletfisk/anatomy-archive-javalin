@@ -11,7 +11,6 @@ import jakarta.persistence.NoResultException;
 import java.util.List;
 
 
-
 public class ExerciseDao implements DAO<Exercise>
 {
     private EntityManagerFactory emf;
@@ -158,6 +157,17 @@ public class ExerciseDao implements DAO<Exercise>
             return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseTypes t WHERE t.id = :typeId", Exercise.class)
                     .setParameter("typeId", typeId)
                     .getResultList();
+        }
+    }
+
+    public List<ExerciseType> getTypesByExercise(int exerciseId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT t FROM Exercise e JOIN e.exerciseTypes t WHERE e.id = :exerciseId", ExerciseType.class)
+                    .setParameter("exerciseId", exerciseId)
+                    .getResultStream()
+                    .collect(java.util.stream.Collectors.toList());
         }
     }
 }

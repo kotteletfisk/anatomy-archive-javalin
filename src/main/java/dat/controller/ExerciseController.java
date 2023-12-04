@@ -4,8 +4,10 @@ import dat.dao.DAO;
 import dat.dao.ExerciseDao;
 import dat.dao.MuscleDao;
 import dat.dto.ExerciseDTO;
+import dat.dto.ExerciseTypeDTO;
 import dat.dto.MuscleDTO;
 import dat.entities.Exercise;
+import dat.entities.ExerciseType;
 import dat.entities.Muscle;
 import dat.exception.ApiException;
 import io.javalin.http.Context;
@@ -115,5 +117,14 @@ public class ExerciseController
 
         exerciseDAO.addTypeToExercise(exerciseId, typeId);
         context.status(201);
+    }
+
+    public void getType(Context context) throws ApiException
+    {
+        int exerciseId = Integer.parseInt(context.pathParam("id"));
+        if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
+        List<ExerciseType> exerciseTypes = exerciseDAO.getTypesByExercise(exerciseId);
+        context.status(200);
+        context.json(ExerciseTypeDTO.toExerciseTypeDTOList(exerciseTypes));
     }
 }
