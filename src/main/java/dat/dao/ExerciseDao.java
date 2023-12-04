@@ -1,6 +1,7 @@
 package dat.dao;
 
 import dat.config.HibernateConfig;
+import dat.entities.Equipment;
 import dat.entities.Exercise;
 import dat.entities.ExerciseType;
 import dat.entities.Muscle;
@@ -168,6 +169,28 @@ public class ExerciseDao implements DAO<Exercise>
                     .setParameter("exerciseId", exerciseId)
                     .getResultStream()
                     .collect(java.util.stream.Collectors.toList());
+        }
+    }
+
+    public void addEquipmentToExercise(int exerciseId, int equipmentId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, exerciseId);
+            Equipment equipment = em.find(Equipment.class, equipmentId);
+            exercise.addEquipment(equipment);
+            em.getTransaction().commit();
+        }
+    }
+
+    public List<Equipment> getEquipmentByExercise(int exerciseId)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Equipment e JOIN e.exerciseHasEquipmentRelation ehe WHERE ehe.exercise.id = :exerciseId", Equipment.class)
+                    .setParameter("exerciseId", exerciseId)
+                    .getResultList();
         }
     }
 }

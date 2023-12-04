@@ -26,7 +26,7 @@ public class ApplicationConfig {
     public static void startServer(Javalin app, int port) {
         Routes routes = new Routes();
         app.updateConfig(ApplicationConfig::configuration);
-        // HibernateConfig.setTest(true); // TODO: remove this line
+        HibernateConfig.setTest(true); // TODO: remove this line
         app.routes(routes.getRoutes(app));
         app.start(port);
     }

@@ -3,9 +3,11 @@ package dat.controller;
 import dat.dao.DAO;
 import dat.dao.ExerciseDao;
 import dat.dao.MuscleDao;
+import dat.dto.EquipmentDTO;
 import dat.dto.ExerciseDTO;
 import dat.dto.ExerciseTypeDTO;
 import dat.dto.MuscleDTO;
+import dat.entities.Equipment;
 import dat.entities.Exercise;
 import dat.entities.ExerciseType;
 import dat.entities.Muscle;
@@ -128,7 +130,24 @@ public class ExerciseController
         context.json(ExerciseTypeDTO.toExerciseTypeDTOList(exerciseTypes));
     }
 
-    public void addEquipment(Context context)
+    public void addEquipment(Context context) throws ApiException
     {
+        int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
+        int equipmentId = Integer.parseInt(context.queryParam("equipmentId"));
+
+        if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
+        if (!exerciseDAO.exists(equipmentId)) throw new ApiException(404, "Equipment with id " + equipmentId + " not found");
+
+        exerciseDAO.addEquipmentToExercise(exerciseId, equipmentId);
+        context.status(201);
+    }
+
+    public void getEquipment(Context context) throws ApiException
+    {
+        int exerciseId = Integer.parseInt(context.pathParam("id"));
+        if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
+        List<Equipment> equipments = exerciseDAO.getEquipmentByExercise(exerciseId);
+        context.status(200);
+        context.json(EquipmentDTO.toEquipmentDTOList(equipments));
     }
 }

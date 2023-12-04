@@ -17,11 +17,12 @@ public class Main
         // DONE: Add wrapper entity for exercise type enum. Maybe use strings instead for easier additions later?
         // DONE: add error handling
         // TODO: add routehandlers
-           // - Exercise (DONE)
+           // - Exercise (DOING)
            // - Muscle
            // - MuscleGroup
            // - Equipment
         // TODO: add controllers
         // TODO: require authentication for POST, PUT, PATCH, DELETE
+        // TODO: find out the mediapath thing
     }
 }

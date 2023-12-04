@@ -18,11 +18,15 @@ public class ExerciseRoutes
                 post("/", exerciseController::create);
                 put("/{id}", exerciseController::update);
                 delete("/{id}", exerciseController::delete);
+                // muscle by exercise
                 post("/muscle", exerciseController::addMuscle); // query param: exerciseId, muscleId
                 get("/{id}/muscle", exerciseController::getMuscle);
+                // type by exercise
                 post("/type", exerciseController::addType); // query param: exerciseId, typeId
                 get("/{id}/type", exerciseController::getType);
+                // equipment by exercise
                 post("/equipment", exerciseController::addEquipment); // query param: exerciseId, equipmentId
+                get("/{id}/equipment", exerciseController::getEquipment);
             });
         };
     }
