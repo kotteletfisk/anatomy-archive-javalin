@@ -11,15 +11,19 @@ public class ExerciseRoutes
     {
         return () ->
         {
-            get("/exercise", exerciseController::getAll);
-            get("/exercise/{id}", exerciseController::getById);
-            post("/exercise", exerciseController::create);
-            put("/exercise/{id}", exerciseController::update);
-            delete("/exercise/{id}", exerciseController::delete);
-            post("/exercise/muscle", exerciseController::addMuscle); // query param: exerciseId, muscleId
-            get("/exercise/{id}/muscle", exerciseController::getMuscle);
-            post("/exercise/type", exerciseController::addType); // query param: exerciseId, typeId
-            get("/exercise/{id}/type", exerciseController::getType);
+            path("/exercise", () ->
+            {
+                get("/", exerciseController::getAll);
+                get("/{id}", exerciseController::getById);
+                post("/", exerciseController::create);
+                put("/{id}", exerciseController::update);
+                delete("/{id}", exerciseController::delete);
+                post("/muscle", exerciseController::addMuscle); // query param: exerciseId, muscleId
+                get("/{id}/muscle", exerciseController::getMuscle);
+                post("/type", exerciseController::addType); // query param: exerciseId, typeId
+                get("/{id}/type", exerciseController::getType);
+                post("/equipment", exerciseController::addEquipment); // query param: exerciseId, equipmentId
+            });
         };
     }
 }

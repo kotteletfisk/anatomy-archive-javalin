@@ -127,4 +127,8 @@ public class ExerciseController
         context.status(200);
         context.json(ExerciseTypeDTO.toExerciseTypeDTOList(exerciseTypes));
     }
+
+    public void addEquipment(Context context)
+    {
+    }
 }
