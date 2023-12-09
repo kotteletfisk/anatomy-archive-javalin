@@ -39,3 +39,7 @@ POST http://localhost:7070/exercise/muscle?exerciseId=1&muscleId=1
 ### get muscle by exercise id
 
 GET http://localhost:7070/exercise/1/muscle
+
+### AUTHORIZATION
+
+POST http://localhost:7070/auth/login
