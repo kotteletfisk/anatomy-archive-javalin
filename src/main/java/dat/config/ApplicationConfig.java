@@ -18,26 +18,30 @@ import java.util.Map;
 import java.util.Properties;
 
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class ApplicationConfig {
+public class ApplicationConfig
+{
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfig.class);
     private static final AccessManagerController ACCESS_MANAGER_HANDLER = new AccessManagerController();
 
-    private static void configuration(JavalinConfig config) {
+    private static void configuration(JavalinConfig config)
+    {
         config.routing.contextPath = "/"; // base path for all routes
         config.http.defaultContentType = "application/json"; // default content type for requests
         config.plugins.register(new RouteOverviewPlugin("/routes")); // enables route overview at /
         config.accessManager(ACCESS_MANAGER_HANDLER::accessManagerHandler);
     }
 
-    public static void startServer(Javalin app, int port) {
+    public static void startServer(Javalin app, int port)
+    {
         Routes routes = new Routes();
         app.updateConfig(ApplicationConfig::configuration);
-        HibernateConfig.setTest(true); // TODO: remove this line
+        HibernateConfig.setTest(false); // TODO: remove this line
         app.routes(routes.getRoutes(app));
         app.start(port);
     }
 
-    public static ClaimBuilder getClaimBuilder(User user, String role) throws IOException {
+    public static ClaimBuilder getClaimBuilder(User user, String role) throws IOException
+    {
         return ClaimBuilder.builder()
                 .issuer(ApplicationConfig.getProperty("issuer"))
                 .audience(ApplicationConfig.getProperty("audience"))
@@ -47,7 +51,8 @@ public class ApplicationConfig {
                 .build();
     }
 
-    public static void stopServer(Javalin app) {
+    public static void stopServer(Javalin app)
+    {
         app.stop();
     }
 
@@ -58,7 +63,8 @@ public class ApplicationConfig {
             Properties prop = new Properties();
             prop.load(is);
             return prop.getProperty(propName);
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             LOGGER.error("Could not read property from pom file. Build Maven!");
             throw new IOException("Could not read property from pom file. Build Maven!");
         }

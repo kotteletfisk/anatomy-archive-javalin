@@ -17,7 +17,6 @@ import dat.security.TokenFactory;
 import io.javalin.http.Context;
 
 import java.io.IOException;
-import java.util.List;
 
 public class AuthController
 {
@@ -31,7 +30,7 @@ public class AuthController
 
         if (user == null || !user.verifyPassword(loginDTO.password()))
         {
-            throw new ApiException(401, "Invalid username or password");
+            throw new ApiException(400, "Invalid username or password");
         }
 
         ClaimBuilder claimBuilder = ApplicationConfig.getClaimBuilder(user, user.getRole().toString());
@@ -42,7 +41,12 @@ public class AuthController
 
     public void register(Context context) throws ApiException, IOException, JOSEException, TokenException
     {
-        RegisterDTO registerDTO = context.bodyAsClass(RegisterDTO.class);
+        RegisterDTO registerDTO = validateUser(context);
+
+        if (dao.exists(registerDTO.username()))
+        {
+            throw new ApiException(400, "User already exists");
+        }
 
         User user = new User(registerDTO.username(), registerDTO.password());
         user.setRole(registerDTO.role());
@@ -54,6 +58,7 @@ public class AuthController
         context.json(createResponseObject(user.getUsername(), user.getRole(), token));
     }
 
+
     private ObjectNode createResponseObject(String userName, Role role, String token) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode respondNode = mapper.createObjectNode();
@@ -61,5 +66,14 @@ public class AuthController
         respondNode.putPOJO("role", role);
         respondNode.put("token", token);
         return respondNode;
+    }
+
+    private RegisterDTO validateUser(Context context)
+    {
+        return context.bodyValidator(RegisterDTO.class)
+                .check(registerDTO -> registerDTO.username() != null && !registerDTO.username().isEmpty(), "Username cannot be empty")
+                .check(registerDTO -> registerDTO.password() != null && registerDTO.password().length() > 8, "Password must be longer than 8 characters")
+                .check(registerDTO -> registerDTO.role() != null, "Role cannot be empty")
+                .get();
     }
 }

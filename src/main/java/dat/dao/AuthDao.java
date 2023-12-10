@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 
-public class AuthDao implements DAO<User>
+public class AuthDao
 {
     EntityManagerFactory emf;
     private static AuthDao instance;
@@ -28,19 +28,16 @@ public class AuthDao implements DAO<User>
         return instance;
     }
 
-    @Override
     public User read(int id) throws ApiException
     {
         return null;
     }
 
-    @Override
     public List<User> readAll() throws ApiException
     {
         return null;
     }
 
-    @Override
     public User readByName(String name) throws ApiException
     {
         try (EntityManager em = emf.createEntityManager())
@@ -55,13 +52,11 @@ public class AuthDao implements DAO<User>
         }
     }
 
-    @Override
     public User update(User user) throws ApiException
     {
         return null;
     }
 
-    @Override
     public User create(User user) throws ApiException
     {
         try (EntityManager em = emf.createEntityManager())
@@ -73,13 +68,15 @@ public class AuthDao implements DAO<User>
         }
     }
 
-    @Override
-    public boolean exists(int id) throws ApiException
+    public boolean exists(String username) throws ApiException
     {
-        return false;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            User user = em.find(User.class, username);
+            return user != null;
+        }
     }
 
-    @Override
     public User delete(int id) throws ApiException
     {
         return null;

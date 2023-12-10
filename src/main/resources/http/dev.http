@@ -47,7 +47,7 @@ content-type: application/json
 
 {
   "username": "admin",
-  "password": "admin",
+  "password": "admin1234",
   "role": "ADMIN"
 }
 
@@ -58,5 +58,18 @@ content-type: application/json
 
 {
   "username": "admin",
-  "password": "admin"
+  "password": "admin1234"
+}
+
+### perform update with authorization
+
+POST http://localhost:7070/exercise
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDIyNDUwMTQsImlhdCI6MTcwMjIzNzgxNCwidXNlcm5hbWUiOiJhZG1pbiJ9.tgkxu-xOCNfszNAVBqUdgj8-4rTaGmsFb9i2FWzHELE
+
+{
+  "name": "Push Up",
+  "description": "Push Up description, but not updated right",
+  "mediaPath": null,
+  "intensity": 5
 }

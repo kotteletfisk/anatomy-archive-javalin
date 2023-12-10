@@ -40,6 +40,10 @@ public class AccessManagerController
     private Role getRole(Context context) throws TokenException, ApiException
     {
         AuthDao dao = AuthDao.getInstance();
+        if (!context.headerMap().containsKey("Authorization"))
+        {
+            throw new ApiException(401, "You are not authorized to perform this action");
+        }
         String token = context.header("Authorization").split(" ")[1];
 
         String usernameFromToken = TokenFactory.getUsernameFromToken(token);
