@@ -1,6 +1,8 @@
 package dat.config;
 
 import dat.controller.AccessManagerController;
+import dat.entities.User;
+import dat.security.ClaimBuilder;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.plugin.bundled.RouteOverviewPlugin;
@@ -12,6 +14,7 @@ import dat.routes.Routes;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
@@ -32,6 +35,16 @@ public class ApplicationConfig {
         HibernateConfig.setTest(true); // TODO: remove this line
         app.routes(routes.getRoutes(app));
         app.start(port);
+    }
+
+    public static ClaimBuilder getClaimBuilder(User user, String role) throws IOException {
+        return ClaimBuilder.builder()
+                .issuer(ApplicationConfig.getProperty("issuer"))
+                .audience(ApplicationConfig.getProperty("audience"))
+                .claimSet(Map.of("username", user.getUsername(), "role", role))
+                .expirationTime(Long.parseLong(ApplicationConfig.getProperty("token.expiration.time")))
+                .issueTime(3600000L)
+                .build();
     }
 
     public static void stopServer(Javalin app) {

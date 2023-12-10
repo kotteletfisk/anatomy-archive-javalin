@@ -24,6 +24,8 @@
         <db.connection.string>jdbc:postgresql://localhost:5432/</db.connection.string>
         <!--  Javalin    -->
         <javalin.port>7070</javalin.port>
+
+        <token.expiration.time>3600000</token.expiration.time>
     </properties>
 
     <dependencies>

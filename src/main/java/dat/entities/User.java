@@ -1,9 +1,6 @@
 package dat.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User
 {
     @Id
@@ -20,7 +18,7 @@ public class User
     private String username;
     @Column(name = "user_password", nullable = false)
     private String password;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
 

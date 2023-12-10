@@ -113,6 +113,7 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(ExerciseType.class);
         configuration.addAnnotatedClass(Muscle.class);
         configuration.addAnnotatedClass(MuscleGroup.class);
+        configuration.addAnnotatedClass(User.class);
     }
 
     private static EntityManagerFactory getEntityManagerFactoryConfigDev() {

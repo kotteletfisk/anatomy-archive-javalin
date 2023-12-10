@@ -42,4 +42,21 @@ GET http://localhost:7070/exercise/1/muscle
 
 ### AUTHORIZATION
 
+POST http://localhost:7070/auth/register
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "admin",
+  "role": "ADMIN"
+}
+
+###
+
 POST http://localhost:7070/auth/login
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}

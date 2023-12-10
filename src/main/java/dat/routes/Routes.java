@@ -1,7 +1,6 @@
 package dat.routes;
 
 import dat.controller.ExceptionController;
-import dat.controller.SearchController;
 import dat.exception.ApiException;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;
