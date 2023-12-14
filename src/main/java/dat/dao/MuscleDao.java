@@ -124,4 +124,14 @@ public class MuscleDao implements DAO<Muscle>
                     .getResultList();
         }
     }
+
+    public List<Muscle> readLikeName(String name)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM Muscle m WHERE m.name LIKE :name", Muscle.class)
+                    .setParameter("name", "%" + name + "%")
+                    .getResultList();
+        }
+    }
 }

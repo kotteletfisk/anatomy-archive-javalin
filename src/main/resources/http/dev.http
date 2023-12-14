@@ -77,3 +77,7 @@ content-type: application/json
 ### get all muscles
 
 GET http://localhost:7070/muscle
+
+### get exercises by muscle pattern
+
+GET http://localhost:7070/search/exercise/byMuscle?pattern=lat

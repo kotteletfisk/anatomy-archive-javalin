@@ -193,4 +193,14 @@ public class ExerciseDao implements DAO<Exercise>
                     .getResultList();
         }
     }
+
+    public List<Exercise> getByMusclePattern(String musclePattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseHasMusclesRelation m WHERE m.muscle.name ILIKE :musclePattern", Exercise.class)
+                    .setParameter("musclePattern", "%" + musclePattern + "%")
+                    .getResultList();
+        }
+    }
 }

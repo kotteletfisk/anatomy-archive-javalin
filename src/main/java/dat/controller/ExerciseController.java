@@ -150,4 +150,12 @@ public class ExerciseController
         context.status(200);
         context.json(EquipmentDTO.toEquipmentDTOList(equipments));
     }
+
+    public void getByMusclePattern(Context context)
+    {
+        String musclePattern = context.queryParam("pattern");
+        List<Exercise> exercises = exerciseDAO.getByMusclePattern(musclePattern);
+        context.status(200);
+        context.json(ExerciseDTO.toExerciseDTOList(exercises));
+    }
 }

@@ -17,6 +17,7 @@ public class MuscleRoutes
         return () ->
         {
             get("/", muscleController::getAll, Role.ANYONE);
+            get("/{name}", muscleController::getLikeName, Role.ANYONE);
         };
     }
 }

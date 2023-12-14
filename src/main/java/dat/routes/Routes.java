@@ -35,6 +35,7 @@ public class Routes
                 path("/exercise", new ExerciseRoutes().getRoutes());
                 path("/muscle", new MuscleRoutes().getRoutes());
                 path("/auth", new AuthRoutes().getRoutes());
+                path("/search", new SearchRoutes().getRoutes());
             });
 
             app.after(ctx -> LOGGER.info(" Request {} - {} was handled with status code {}", count++, ctx.attribute("requestInfo"), ctx.status()));

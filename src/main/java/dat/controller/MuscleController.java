@@ -20,4 +20,13 @@ public class MuscleController
         context.status(200);
         context.json(dtos);
     }
+
+    public void getLikeName(Context context)
+    {
+        String name = context.pathParam("name");
+        List<Muscle> muscles = muscleDao.readLikeName(name);
+        List<MuscleDTO> dtos = MuscleDTO.toMuscleDTOList(muscles);
+        context.status(200);
+        context.json(dtos);
+    }
 }
