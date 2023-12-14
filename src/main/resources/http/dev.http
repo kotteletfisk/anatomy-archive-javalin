@@ -65,11 +65,15 @@ content-type: application/json
 
 POST http://localhost:7070/exercise
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDIyNDUwMTQsImlhdCI6MTcwMjIzNzgxNCwidXNlcm5hbWUiOiJhZG1pbiJ9.tgkxu-xOCNfszNAVBqUdgj8-4rTaGmsFb9i2FWzHELE
 
 {
-  "name": "Push Up",
+  "name": "blabla",
   "description": "Push Up description, but not updated right",
   "mediaPath": null,
   "intensity": 5
 }
+### Authorization: bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDIyOTMzMzAsImlhdCI6MTcwMjI4NjEzMCwidXNlcm5hbWUiOiJhZG1pbiJ9.PsHk9LIJhNTkydUkwynsJkJ4PdPRY3aMz58TO-vv0fk
+
+### get all muscles
+
+GET http://localhost:7070/muscle

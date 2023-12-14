@@ -3,8 +3,6 @@ package dat.routes;
 import dat.controller.AuthController;
 import dat.entities.Role;
 import io.javalin.apibuilder.EndpointGroup;
-
-import static io.javalin.apibuilder.ApiBuilder.path;
 import static io.javalin.apibuilder.ApiBuilder.post;
 
 public class AuthRoutes

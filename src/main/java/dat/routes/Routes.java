@@ -10,24 +10,30 @@ import org.slf4j.LoggerFactory;
 
 import static io.javalin.apibuilder.ApiBuilder.path;
 
-public class Routes {
+public class Routes
+{
 
     private final ExceptionController exceptionController = new ExceptionController();
     private int count = 0;
 
     private final Logger LOGGER = LoggerFactory.getLogger(Routes.class);
 
-    private void requestInfoHandler(Context ctx) {
+    private void requestInfoHandler(Context ctx)
+    {
         String requestInfo = ctx.req().getMethod() + " " + ctx.req().getRequestURI();
         ctx.attribute("requestInfo", requestInfo);
     }
 
-    public EndpointGroup getRoutes(Javalin app) {
-        return () -> {
+    public EndpointGroup getRoutes(Javalin app)
+    {
+        return () ->
+        {
             app.before(this::requestInfoHandler);
 
-            app.routes(() -> {
-                path("/", new ExerciseRoutes().getRoutes());
+            app.routes(() ->
+            {
+                path("/exercise", new ExerciseRoutes().getRoutes());
+                path("/muscle", new MuscleRoutes().getRoutes());
                 path("/auth", new AuthRoutes().getRoutes());
             });
 
