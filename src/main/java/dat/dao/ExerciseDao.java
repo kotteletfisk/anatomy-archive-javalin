@@ -203,4 +203,24 @@ public class ExerciseDao implements DAO<Exercise>
                     .getResultList();
         }
     }
+
+    public List<Exercise> getByEquipmentPattern(String equipmentPattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e JOIN e.exerciseHasEquipmentRelation ehe WHERE ehe.equipment.name ILIKE :equipmentPattern", Exercise.class)
+                    .setParameter("equipmentPattern", "%" + equipmentPattern + "%")
+                    .getResultList();
+        }
+    }
+
+    public List<Exercise> getByNamePattern(String namePattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Exercise e WHERE e.name ILIKE :namePattern", Exercise.class)
+                    .setParameter("namePattern", "%" + namePattern + "%")
+                    .getResultList();
+        }
+    }
 }

@@ -18,6 +18,8 @@ public class SearchRoutes
             path("/exercise", () ->
             {
                 get("/byMuscle", exerciseController::getByMusclePattern, Role.ANYONE);
+                get("/byEquipment", exerciseController::getByEquipmentPattern, Role.ANYONE);
+                get("/byName", exerciseController::getByNamePattern, Role.ANYONE);
             });
         };
     }

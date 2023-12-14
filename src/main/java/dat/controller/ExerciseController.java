@@ -158,4 +158,20 @@ public class ExerciseController
         context.status(200);
         context.json(ExerciseDTO.toExerciseDTOList(exercises));
     }
+
+    public void getByEquipmentPattern(Context context)
+    {
+        String equipmentPattern = context.queryParam("pattern");
+        List<Exercise> exercises = exerciseDAO.getByEquipmentPattern(equipmentPattern);
+        context.status(200);
+        context.json(ExerciseDTO.toExerciseDTOList(exercises));
+    }
+
+    public void getByNamePattern(Context context)
+    {
+        String namePattern = context.queryParam("pattern");
+        List<Exercise> exercises = exerciseDAO.getByNamePattern(namePattern);
+        context.status(200);
+        context.json(ExerciseDTO.toExerciseDTOList(exercises));
+    }
 }
