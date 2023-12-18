@@ -5,6 +5,7 @@ import dat.entities.User;
 import dat.security.ClaimBuilder;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
+import io.javalin.http.Context;
 import io.javalin.plugin.bundled.RouteOverviewPlugin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 import lombok.NoArgsConstructor;
@@ -31,11 +32,20 @@ public class ApplicationConfig
         config.accessManager(ACCESS_MANAGER_HANDLER::accessManagerHandler);
     }
 
+    public static void corsConfig(Context ctx) {
+        ctx.header("Access-Control-Allow-Origin", "*");
+        ctx.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        ctx.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        ctx.header("Access-Control-Allow-Credentials", "true");
+    }
+
     public static void startServer(Javalin app, int port)
     {
         Routes routes = new Routes();
         app.updateConfig(ApplicationConfig::configuration);
         HibernateConfig.setTest(false); // TODO: remove this line
+        app.before(ApplicationConfig::corsConfig);
+        app.options("/*", ApplicationConfig::corsConfig);
         app.routes(routes.getRoutes(app));
         app.start(port);
     }
