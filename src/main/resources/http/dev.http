@@ -112,3 +112,7 @@ GET http://localhost:7070/search/equipment/byName?pattern=bar
 ###
 
 GET http://localhost:7070/search/type/byName?pattern=sth
+
+### search musclegroup by pattern
+
+GET http://localhost:7070/search/musclegroup/byName?pattern=he

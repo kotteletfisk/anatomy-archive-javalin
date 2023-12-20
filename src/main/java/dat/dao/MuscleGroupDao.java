@@ -98,4 +98,14 @@ public class MuscleGroupDao implements DAO<MuscleGroup>
     {
         return null;
     }
+
+    public List<MuscleGroup> readLikeNamePattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM MuscleGroup m WHERE m.name ILIKE :pattern", MuscleGroup.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
 }
