@@ -116,6 +116,22 @@ public class ExerciseDao implements DAO<Exercise>
         }
     }
 
+    public void addMuscleToExercise(int exerciseId, int[] muscleIdInts)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, exerciseId);
+            for (int muscleId : muscleIdInts)
+            {
+                Muscle muscle = em.find(Muscle.class, muscleId);
+                exercise.addMuscle(muscle);
+            }
+            em.getTransaction().commit();
+        }
+    }
+
+
     public boolean exists(int id)
     {
         try (EntityManager em = emf.createEntityManager())

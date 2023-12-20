@@ -34,7 +34,8 @@ DELETE http://localhost:7070/exercise/7
 
 ### add relation
 
-POST http://localhost:7070/exercise/muscle?exerciseId=1&muscleId=1
+POST http://localhost:7070/exercise/muscle?exerciseId=1&muscleId=1,2,3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMwNzQzMTAsImlhdCI6MTcwMzA2NzExMCwidXNlcm5hbWUiOiJhZG1pbiJ9.Pl6IkJHMTEVn0hJR7Aure9Rw87SUeoB5PLRcjFAMPTk
 
 ### get muscle by exercise id
 

@@ -91,12 +91,29 @@ public class ExerciseController
     public void addMuscle(Context context) throws ApiException
     {
         int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
-        int muscleId = Integer.parseInt(context.queryParam("muscleId"));
-
         if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
-        if (!muscleDAO.exists(muscleId)) throw new ApiException(404, "Muscle with id " + muscleId + " not found");
+        String muscleId = context.queryParam("muscleId");
 
-        exerciseDAO.addMuscleToExercise(exerciseId, muscleId);
+        if (muscleId.contains(","))
+        {
+            String[] muscleIds = muscleId.split(",");
+            int[] muscleIdsInt = new int[muscleIds.length];
+            for (int i = 0; i < muscleIds.length; i++)
+            {
+                muscleIdsInt[i] = Integer.parseInt(muscleIds[i]);
+                if (!exerciseDAO.exists(muscleIdsInt[i])) throw new ApiException(404, "Exercise with id " + muscleIdsInt[i] + " not found");
+            }
+            exerciseDAO.addMuscleToExercise(exerciseId, muscleIdsInt);
+        }
+        else
+        {
+            int parsedInt = Integer.parseInt(muscleId);
+            if (!muscleDAO.exists(parsedInt)) throw new ApiException(404, "Muscle with id " + muscleId + " not found");
+
+            exerciseDAO.addMuscleToExercise(exerciseId, parsedInt);
+        }
+
+
         context.status(201);
     }
 
