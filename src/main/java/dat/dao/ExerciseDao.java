@@ -167,6 +167,21 @@ public class ExerciseDao implements DAO<Exercise>
         }
     }
 
+    public void addTypeToExercise(int exerciseId, int[] typeIdsInt)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, exerciseId);
+            for (int typeId : typeIdsInt)
+            {
+                ExerciseType exerciseType = em.find(ExerciseType.class, typeId);
+                exercise.addExerciseType(exerciseType);
+            }
+            em.getTransaction().commit();
+        }
+    }
+
     public List<Exercise> getExercisesByType(int typeId)
     {
         try (EntityManager em = emf.createEntityManager())

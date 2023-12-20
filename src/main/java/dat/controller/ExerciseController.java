@@ -129,12 +129,26 @@ public class ExerciseController
     public void addType(Context context) throws ApiException
     {
         int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
-        int typeId = Integer.parseInt(context.queryParam("typeId"));
-
         if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
-        if (!exerciseDAO.exists(typeId)) throw new ApiException(404, "Type with id " + typeId + " not found");
 
-        exerciseDAO.addTypeToExercise(exerciseId, typeId);
+        String typeId = context.queryParam("typeId");
+        if (typeId.contains(","))
+        {
+            String[] typeIds = typeId.split(",");
+            int[] typeIdsInt = new int[typeIds.length];
+            for (int i = 0; i < typeIds.length; i++)
+            {
+                typeIdsInt[i] = Integer.parseInt(typeIds[i]);
+                if (!exerciseDAO.exists(typeIdsInt[i])) throw new ApiException(404, "Type with id " + typeIdsInt[i] + " not found");
+            }
+            exerciseDAO.addTypeToExercise(exerciseId, typeIdsInt);
+        }
+        else
+        {
+            int parsedInt = Integer.parseInt(typeId);
+            if (!exerciseDAO.exists(parsedInt)) throw new ApiException(404, "Type with id " + typeId + " not found");
+            exerciseDAO.addTypeToExercise(exerciseId, parsedInt);
+        }
         context.status(201);
     }
 

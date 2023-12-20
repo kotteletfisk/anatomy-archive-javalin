@@ -42,6 +42,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMwN
 POST http://localhost:7070/exercise/equipment?exerciseId=1&equipmentId=1,2,3
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMwNzU5MDIsImlhdCI6MTcwMzA2ODcwMiwidXNlcm5hbWUiOiJhZG1pbiJ9.ipK9xz87it_tUxQmZUfWIGsYLVCnRY-AhGi2qeWrtEM
 
+### add type to exercise
+
+POST http://localhost:7070/exercise/type?exerciseId=1&typeId=1,2,3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMwNzU5MDIsImlhdCI6MTcwMzA2ODcwMiwidXNlcm5hbWUiOiJhZG1pbiJ9.ipK9xz87it_tUxQmZUfWIGsYLVCnRY-AhGi2qeWrtEM
+
 ### get muscle by exercise id
 
 GET http://localhost:7070/exercise/1/muscle
