@@ -199,6 +199,20 @@ public class ExerciseDao implements DAO<Exercise>
             em.getTransaction().commit();
         }
     }
+    public void addEquipmentToExercise(int exerciseId, int[] equipmentIdsInt)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            Exercise exercise = em.find(Exercise.class, exerciseId);
+            for (int equipmentId : equipmentIdsInt)
+            {
+                Equipment equipment = em.find(Equipment.class, equipmentId);
+                exercise.addEquipment(equipment);
+            }
+            em.getTransaction().commit();
+        }
+    }
 
     public List<Equipment> getEquipmentByExercise(int exerciseId)
     {
@@ -239,4 +253,5 @@ public class ExerciseDao implements DAO<Exercise>
                     .getResultList();
         }
     }
+
 }

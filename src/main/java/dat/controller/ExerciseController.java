@@ -150,12 +150,26 @@ public class ExerciseController
     public void addEquipment(Context context) throws ApiException
     {
         int exerciseId = Integer.parseInt(context.queryParam("exerciseId"));
-        int equipmentId = Integer.parseInt(context.queryParam("equipmentId"));
-
         if (!exerciseDAO.exists(exerciseId)) throw new ApiException(404, "Exercise with id " + exerciseId + " not found");
-        if (!exerciseDAO.exists(equipmentId)) throw new ApiException(404, "Equipment with id " + equipmentId + " not found");
 
-        exerciseDAO.addEquipmentToExercise(exerciseId, equipmentId);
+        String equipmentId = context.queryParam("equipmentId");
+        if (equipmentId.contains(","))
+        {
+            String[] equipmentIds = equipmentId.split(",");
+            int[] equipmentIdsInt = new int[equipmentIds.length];
+            for (int i = 0; i < equipmentIds.length; i++)
+            {
+                equipmentIdsInt[i] = Integer.parseInt(equipmentIds[i]);
+                if (!exerciseDAO.exists(equipmentIdsInt[i])) throw new ApiException(404, "Equipment with id " + equipmentIdsInt[i] + " not found");
+            }
+            exerciseDAO.addEquipmentToExercise(exerciseId, equipmentIdsInt);
+        }
+        else
+        {
+            int parsedInt = Integer.parseInt(equipmentId);
+            if (!exerciseDAO.exists(parsedInt)) throw new ApiException(404, "Equipment with id " + equipmentId + " not found");
+            exerciseDAO.addEquipmentToExercise(exerciseId, parsedInt);
+        }
         context.status(201);
     }
 
