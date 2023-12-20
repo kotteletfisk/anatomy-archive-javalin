@@ -89,3 +89,11 @@ GET http://localhost:7070/search/exercise/byEquipment?pattern=bar
 ### search exercises by name pattern
 
 GET http://localhost:7070/search/exercise/byName?pattern=ben
+
+### search muslce by name
+
+GET http://localhost:7070/search/muscle/byName?pattern=issi
+
+### search equipment by name
+
+GET http://localhost:7070/search/equipment/byName?pattern=bar

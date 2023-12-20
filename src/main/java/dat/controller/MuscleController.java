@@ -21,10 +21,19 @@ public class MuscleController
         context.json(dtos);
     }
 
-    public void getLikeName(Context context)
+    public void getLikeName(Context context) throws ApiException
     {
         String name = context.pathParam("name");
         List<Muscle> muscles = muscleDao.readLikeName(name);
+        List<MuscleDTO> dtos = MuscleDTO.toMuscleDTOList(muscles);
+        context.status(200);
+        context.json(dtos);
+    }
+
+    public void getMuscleByNamePattern(Context context) throws ApiException
+    {
+        String pattern = context.queryParam("pattern");
+        List<Muscle> muscles = muscleDao.readLikeNamePattern(pattern);
         List<MuscleDTO> dtos = MuscleDTO.toMuscleDTOList(muscles);
         context.status(200);
         context.json(dtos);

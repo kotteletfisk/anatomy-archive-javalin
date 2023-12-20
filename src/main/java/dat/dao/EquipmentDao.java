@@ -107,4 +107,14 @@ public class EquipmentDao implements DAO<Equipment>
     {
         return null;
     }
+
+    public List<Equipment> readLikeNamePattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Equipment e WHERE e.name ILIKE :pattern", Equipment.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
 }
