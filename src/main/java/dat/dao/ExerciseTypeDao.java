@@ -89,4 +89,14 @@ public class ExerciseTypeDao implements DAO<ExerciseType>
     {
         return null;
     }
+
+    public List<ExerciseType> readLikeNamePattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM ExerciseType e WHERE e.typeName ILIKE :pattern", ExerciseType.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
 }

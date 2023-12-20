@@ -108,3 +108,7 @@ GET http://localhost:7070/search/muscle/byName?pattern=issi
 ### search equipment by name
 
 GET http://localhost:7070/search/equipment/byName?pattern=bar
+
+###
+
+GET http://localhost:7070/search/type/byName?pattern=sth

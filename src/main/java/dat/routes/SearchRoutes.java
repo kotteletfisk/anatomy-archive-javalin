@@ -3,6 +3,7 @@ package dat.routes;
 import dat.controller.EquipmentController;
 import dat.controller.ExerciseController;
 import dat.controller.MuscleController;
+import dat.controller.ExerciseTypeController;
 import dat.entities.Role;
 import io.javalin.apibuilder.EndpointGroup;
 
@@ -14,6 +15,7 @@ public class SearchRoutes
     ExerciseController exerciseController = new ExerciseController();
     MuscleController muscleController = new MuscleController();
     EquipmentController equipmentController = new EquipmentController();
+    ExerciseTypeController exerciseTypeController = new ExerciseTypeController();
 
     public EndpointGroup getRoutes()
     {
@@ -32,6 +34,10 @@ public class SearchRoutes
             path("/equipment", () ->
             {
                 get("/byName", equipmentController::getByEquipmentPattern, Role.ANYONE); // query param: pattern
+            });
+            path("/type", () ->
+            {
+                get("/byName", exerciseTypeController::getByTypePattern, Role.ANYONE); // query param: pattern
             });
         };
     }
