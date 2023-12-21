@@ -58,7 +58,13 @@ public class ExerciseTypeDao implements DAO<ExerciseType>
     @Override
     public ExerciseType update(ExerciseType exerciseType)
     {
-        return null;
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            ExerciseType updated = em.merge(exerciseType);
+            em.getTransaction().commit();
+            return updated;
+        }
     }
 
     @Override

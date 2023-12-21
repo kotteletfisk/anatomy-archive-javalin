@@ -75,9 +75,16 @@ public class MuscleController
     public void update(Context context) throws ApiException
     {
         int id = Integer.parseInt(context.pathParam("id"));
+        if (!muscleDao.exists(id)) throw new ApiException(404, "Muscle not found with id " + id);
         MuscleDTO muscleDTO = context.bodyAsClass(MuscleDTO.class);
         Muscle muscle = new Muscle(muscleDTO);
+
+        if (!muscleGroupDao.exists(muscleDTO.getMuscleGroupId()))
+            throw new ApiException(404, "Muscle group not found with id " + muscleDTO.getMuscleGroupId());
+
+        MuscleGroup muscleGroup = muscleGroupDao.read(muscleDTO.getMuscleGroupId());
         muscle.setId(id);
+        muscle.setMuscleGroup(muscleGroup);
         muscleDao.update(muscle);
         context.status(200);
         context.json(new MuscleDTO(muscle));

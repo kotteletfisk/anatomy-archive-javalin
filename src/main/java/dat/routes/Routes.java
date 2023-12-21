@@ -36,6 +36,7 @@ public class Routes
                 path("/muscle", new MuscleRoutes().getRoutes());
                 path("/equipment", new EquipmentRoutes().getRoutes());
                 path("/musclegroup", new MuscleGroupRoutes().getRoutes());
+                path("/type", new ExerciseTypeRoutes().getRoutes());
                 path("/auth", new AuthRoutes().getRoutes());
                 path("/search", new SearchRoutes().getRoutes());
             });

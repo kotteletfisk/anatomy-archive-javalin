@@ -34,6 +34,7 @@ public class Muscle
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "muscle_group_id", nullable = false)
     private MuscleGroup muscleGroup;
 
     @OneToMany(mappedBy = "muscle", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

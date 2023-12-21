@@ -1,8 +1,10 @@
 package dat.entities;
 
+import dat.dto.ExerciseTypeDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class ExerciseType
 {
@@ -27,5 +30,11 @@ public class ExerciseType
     public ExerciseType(String typeName)
     {
         this.typeName = typeName.toUpperCase();
+    }
+
+    public ExerciseType(ExerciseTypeDTO exerciseTypeDTO)
+    {
+        if (exerciseTypeDTO.getId() != 0) this.id = exerciseTypeDTO.getId();
+        this.typeName = exerciseTypeDTO.getTypeName().toUpperCase();
     }
 }

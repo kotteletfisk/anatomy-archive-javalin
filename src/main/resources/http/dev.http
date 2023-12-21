@@ -47,12 +47,60 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
 {
-
+  "name": "Triceps",
+  "description": "Triceps description",
+  "mediaPath": null,
+  "muscleGroupId": 1
 }
+
+### create musclegroup
+
+POST http://localhost:7070/musclegroup
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
+
+{
+  "name": "",
+  "description": "Face description",
+  "mediaPath": null
+}
+
+### create exercisetype
+
+POST http://localhost:7070/type
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNzk5NzMsImlhdCI6MTcwMzE3Mjc3MywidXNlcm5hbWUiOiJhZG1pbiJ9.LdZNpcgATpZc_7XdPg0Vn_buGSOsufVF6gJ3cSPnJ20
+
+{
+  "typeName": "mobility"
+}
+
+### update exercisetype
+
+PUT http://localhost:7070/type/4
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNzk5NzMsImlhdCI6MTcwMzE3Mjc3MywidXNlcm5hbWUiOiJhZG1pbiJ9.LdZNpcgATpZc_7XdPg0Vn_buGSOsufVF6gJ3cSPnJ20
+
+{
+  "typeName": "mobility and flexibility"
+}
+
+### update musclegroup
+
+PUT http://localhost:7070/musclegroup/7
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.LcAq1hB78J4mTOrkVtIqlNDR0F4MBzKowlP4q2VHVs
+
+{
+  "name": "Neck",
+  "description": "Neck description, but updated",
+  "mediaPath": null
+}
+
 
 ### update equipment
 
-PUT http://localhost:7070/equipment/4
+PUT http://localhost:7070/equipment/8
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
@@ -76,15 +124,18 @@ content-type: application/json
 
 ### update muscle
 
-PUT http://localhost:7070/muscle/4
+PUT http://localhost:7070/muscle/8
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
 {
-  "name": "Bar",
-  "description": "Bar description, but updated",
-  "mediaPath": null
+  "name": "Triceps",
+  "description": "Triceps description, but updated again and again",
+  "mediaPath": null,
+  "muscleGroupId": 9
 }
+
+
 
 ### delete
 

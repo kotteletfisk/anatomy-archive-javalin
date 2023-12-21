@@ -12,7 +12,7 @@ public class KeyGenerator
 
     public static byte[] getSecretKey() throws JOSEException
     {
-        if (secretKey == null)
+        if (secretKey == null || secretKey.length < 1)
         {
             secretKey = generateSecretKey();
         }

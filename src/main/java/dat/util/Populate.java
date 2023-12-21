@@ -66,6 +66,7 @@ public class Populate
             em.createNativeQuery("ALTER SEQUENCE muscle_muscle_id_seq RESTART WITH 1").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE musclegroup_muscle_group_id_seq RESTART WITH 1").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE exercisetype_exercise_type_id_seq RESTART WITH 1").executeUpdate();
+
             em.persist(mg1);
             em.persist(mg2);
             em.persist(mg3);
