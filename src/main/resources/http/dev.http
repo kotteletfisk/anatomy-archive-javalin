@@ -16,6 +16,30 @@ content-type: application/json
   "intensity": 5
 }
 
+### create equipment
+
+POST http://localhost:7070/equipment
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
+
+{
+  "name": "Bar",
+  "description": "Bar description",
+  "mediaPath": null
+}
+
+### update equipment
+
+PUT http://localhost:7070/equipment/4
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
+
+{
+  "name": "Bar",
+  "description": "Bar description, but updated",
+  "mediaPath": null
+}
+
 ### update
 
 PUT http://localhost:7070/exercise/10
