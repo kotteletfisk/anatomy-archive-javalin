@@ -42,7 +42,7 @@ public class MuscleController
         context.json(dtos);
     }
 
-    public void getMuscleByEquipmentPattern(Context context)
+    public void getMuscleByEquipmentPattern(Context context) throws ApiException
     {
         String pattern = context.queryParam("pattern");
         List<Muscle> muscles = muscleDao.readLikeEquipmentPattern(pattern);
@@ -51,7 +51,7 @@ public class MuscleController
         context.json(dtos);
     }
 
-    public void getMuscleByExercisePattern(Context context)
+    public void getMuscleByExercisePattern(Context context) throws ApiException
     {
         String pattern = context.queryParam("pattern");
         List<Muscle> muscles = muscleDao.getLikeExercisePattern(pattern);
@@ -60,7 +60,7 @@ public class MuscleController
         context.json(dtos);
     }
 
-    public void create(Context context)
+    public void create(Context context) throws ApiException
     {
         MuscleDTO muscleDTO = context.bodyAsClass(MuscleDTO.class);
         Muscle muscle = new Muscle(muscleDTO);
@@ -72,13 +72,22 @@ public class MuscleController
         context.json(new MuscleDTO(muscle));
     }
 
-    public void update(Context context)
+    public void update(Context context) throws ApiException
     {
         int id = Integer.parseInt(context.pathParam("id"));
         MuscleDTO muscleDTO = context.bodyAsClass(MuscleDTO.class);
         Muscle muscle = new Muscle(muscleDTO);
         muscle.setId(id);
         muscleDao.update(muscle);
+        context.status(200);
+        context.json(new MuscleDTO(muscle));
+    }
+
+    public void getById(Context context) throws ApiException
+    {
+        int id = Integer.parseInt(context.pathParam("id"));
+        if (!muscleDao.exists(id)) throw new ApiException(404, "Muscle not found with id " + id);
+        Muscle muscle = muscleDao.read(id);
         context.status(200);
         context.json(new MuscleDTO(muscle));
     }

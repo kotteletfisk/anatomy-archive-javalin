@@ -31,7 +31,7 @@ public class MuscleDTO
         this.name = muscle.getName();
         this.description = muscle.getDescription();
         this.mediaPath = muscle.getMediaPath();
-        this.muscleGroupId = muscle.getMuscleGroup().getId();
+        if (muscle.getMuscleGroup() != null) this.muscleGroupId = muscle.getMuscleGroup().getId();
     }
 
     public static List<MuscleDTO> toMuscleDTOList(List<Muscle> muscles)

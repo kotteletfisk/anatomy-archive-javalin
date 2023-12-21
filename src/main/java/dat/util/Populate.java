@@ -31,6 +31,10 @@ public class Populate
         Muscle muscle2 = new Muscle("Latissimus dorsi", null, "Back muscle");
         Muscle muscle3 = new Muscle("Quadriceps femoris", null, "Leg muscle");
 
+        muscle.setMuscleGroup(mg1);
+        muscle2.setMuscleGroup(mg2);
+        muscle3.setMuscleGroup(mg3);
+
         Exercise exercise = new Exercise("Squat", "Squat down below the knees", null, 5);
         Exercise exercise2 = new Exercise("Deadlift", "The dealift exercise", null, 5);
         Exercise exercise3 = new Exercise("Bench press", "The bench press exercise", null, 5);

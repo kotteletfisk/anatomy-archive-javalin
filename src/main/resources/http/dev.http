@@ -8,6 +8,12 @@ GET http://localhost:7070/exercise/1
 
 GET http://localhost:7070/equipment/1
 
+### get muscle by id
+
+GET http://localhost:7070/muscle/1
+
+
+
 ### create
 
 POST http://localhost:7070/exercise

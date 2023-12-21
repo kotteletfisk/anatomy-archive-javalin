@@ -14,10 +14,8 @@ public class MuscleRoutes
     public EndpointGroup getRoutes()
     {
         return () ->
-        {   // DEPRECATED
-            get("/", muscleController::getAll, Role.ANYONE);
-            get("/{name}", muscleController::getLikeName, Role.ANYONE);
-
+        {
+            get("/{id}", muscleController::getById, Role.ANYONE);
             post("/", muscleController::create, Role.ADMIN);
             put("/{id}", muscleController::update, Role.ADMIN);
         };
