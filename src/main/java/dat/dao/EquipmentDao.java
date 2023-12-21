@@ -117,4 +117,29 @@ public class EquipmentDao implements DAO<Equipment>
                     .getResultList();
         }
     }
+
+    public List<Equipment> getLikeMusclePattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Equipment e " +
+                            "JOIN e.exerciseHasEquipmentRelation ehe " +
+                            "JOIN ehe.exercise ex " +
+                            "JOIN ex.exerciseHasMusclesRelation ehm WHERE ehm.muscle.name ILIKE :pattern", Equipment.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
+
+    public List<Equipment> getLikeExercisePattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM Equipment e " +
+                            "JOIN e.exerciseHasEquipmentRelation ehe " +
+                            "WHERE ehe.exercise.name ILIKE :pattern", Equipment.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
 }

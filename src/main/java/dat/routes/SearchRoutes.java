@@ -21,25 +21,29 @@ public class SearchRoutes
         {
             path("/exercise", () ->
             {
-                get("/byMuscle", exerciseController::getByMusclePattern, Role.ANYONE); // query param: pattern
-                get("/byEquipment", exerciseController::getByEquipmentPattern, Role.ANYONE);
-                get("/byName", exerciseController::getByNamePattern, Role.ANYONE);
+                get("/bymuscle", exerciseController::getByMusclePattern, Role.ANYONE); // query param: pattern
+                get("/byequipment", exerciseController::getByEquipmentPattern, Role.ANYONE);
+                get("/byexercise", exerciseController::getByNamePattern, Role.ANYONE);
             });
             path("/muscle", () ->
             {
-                get("/byName", muscleController::getMuscleByNamePattern, Role.ANYONE); // query param: pattern
+                get("/bymuscle", muscleController::getMuscleByNamePattern, Role.ANYONE); // query param: pattern
+                get("/byequipment", muscleController::getMuscleByEquipmentPattern, Role.ANYONE);
+                get("/byexercise", muscleController::getMuscleByExercisePattern, Role.ANYONE);
             });
             path("/equipment", () ->
             {
-                get("/byName", equipmentController::getByEquipmentPattern, Role.ANYONE); // query param: pattern
+                get("/bymuscle", equipmentController::getByMusclePattern, Role.ANYONE); // query param: pattern
+                get("/byequipment", equipmentController::getByEquipmentPattern, Role.ANYONE); // query param: pattern
+                get("/byexercise", equipmentController::getByExercisePattern, Role.ANYONE); // query param: pattern
             });
             path("/type", () ->
             {
-                get("/byName", exerciseTypeController::getByTypePattern, Role.ANYONE); // query param: pattern
+                get("/bytype", exerciseTypeController::getByTypePattern, Role.ANYONE); // query param: pattern
             });
             path("/musclegroup", () ->
             {
-                get("/byName", muscleGroupController::getByNamePattern, Role.ANYONE); // query param: pattern
+                get("/bymusclegroup", muscleGroupController::getByNamePattern, Role.ANYONE); // query param: pattern
             });
         };
     }

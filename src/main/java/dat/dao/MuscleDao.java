@@ -1,7 +1,6 @@
 package dat.dao;
 
 import dat.config.HibernateConfig;
-import dat.entities.Exercise;
 import dat.entities.Muscle;
 import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
@@ -9,7 +8,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
-import java.util.Set;
 
 public class MuscleDao implements DAO<Muscle>
 {
@@ -125,7 +123,7 @@ public class MuscleDao implements DAO<Muscle>
         }
     }
 
-    public List<Muscle> readLikeName(String name)
+    public List<Muscle> getLikeName(String name)
     {
         try (EntityManager em = emf.createEntityManager())
         {
@@ -135,11 +133,36 @@ public class MuscleDao implements DAO<Muscle>
         }
     }
 
-    public List<Muscle> readLikeNamePattern(String pattern)
+    public List<Muscle> getLikeNamePattern(String pattern)
     {
         try (EntityManager em = emf.createEntityManager())
         {
             return em.createQuery("SELECT m FROM Muscle m WHERE m.name ILIKE :pattern", Muscle.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
+
+    public List<Muscle> readLikeEquipmentPattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM Muscle m " +
+                            "JOIN m.exerciseHasMusclesRelation em " +
+                            "JOIN em.exercise e " +
+                            "JOIN e.exerciseHasEquipmentRelation ehe WHERE ehe.equipment.name ILIKE :pattern", Muscle.class)
+                    .setParameter("pattern", "%" + pattern + "%")
+                    .getResultList();
+        }
+    }
+
+    public List<Muscle> getLikeExercisePattern(String pattern)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT m FROM Muscle m " +
+                            "JOIN m.exerciseHasMusclesRelation em " +
+                            "WHERE em.exercise.name ILIKE :pattern", Muscle.class)
                     .setParameter("pattern", "%" + pattern + "%")
                     .getResultList();
         }

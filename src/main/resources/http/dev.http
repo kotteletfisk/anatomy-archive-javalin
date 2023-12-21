@@ -116,3 +116,19 @@ GET http://localhost:7070/search/type/byName?pattern=sth
 ### search musclegroup by pattern
 
 GET http://localhost:7070/search/musclegroup/byName?pattern=he
+
+### search muscles by equipment
+
+GET http://localhost:7070/search/muscle/byequipment?pattern=bar
+
+### search muscles by exercise pattern
+
+GET http://localhost:7070/search/muscle/byexercise?pattern=squ
+
+### search equipment by muscle pattern
+
+GET http://localhost:7070/search/equipment/bymuscle?pattern=maj
+
+### search equipment by exercise pattern
+
+GET http://localhost:7070/search/equipment/byexercise?pattern=qua
