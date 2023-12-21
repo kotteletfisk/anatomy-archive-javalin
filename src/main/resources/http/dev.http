@@ -20,9 +20,10 @@ GET http://localhost:7070/musclegroup/1
 
 POST http://localhost:7070/exercise
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
 {
-  "name": "Push Up",
+  "name": "Øvelse",
   "description": "Push Up description",
   "mediaPath": null,
   "intensity": 5
@@ -35,8 +36,8 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
 {
-  "name": "Bar",
-  "description": "Bar description",
+  "name": "lol",
+  "description": "",
   "mediaPath": null
 }
 
@@ -47,8 +48,8 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
 {
-  "name": "Triceps",
-  "description": "Triceps description",
+  "name": "",
+  "description": "",
   "mediaPath": null,
   "muscleGroupId": 1
 }

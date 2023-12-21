@@ -43,15 +43,7 @@ public class ExerciseController
 
     public void create(Context context) throws ApiException
     {
-        ExerciseDTO dto;
-        try
-        {
-            dto = context.bodyAsClass(ExerciseDTO.class);
-        }
-        catch (Exception e)
-        {
-            throw new ApiException(400, e.getMessage());
-        }
+        ExerciseDTO dto = validate(context);
         Exercise exercise = exerciseDAO.create(new Exercise(dto));
         dto = new ExerciseDTO(exercise);
         context.status(201);
@@ -61,18 +53,9 @@ public class ExerciseController
     public void update(Context context) throws ApiException
     {
         int id = Integer.parseInt(context.pathParam("id"));
-        ExerciseDTO dto;
 
         if (!exerciseDAO.exists(id)) throw new ApiException(404, "Exercise with id " + id + " not found");
-
-        try
-        {
-            dto = context.bodyAsClass(ExerciseDTO.class);
-        }
-        catch (Exception e)
-        {
-            throw new ApiException(400, e.getMessage());
-        }
+        ExerciseDTO dto = validate(context);
         Exercise exercise = new Exercise(dto);
         exercise.setId(id);
         dto = new ExerciseDTO(exerciseDAO.update(exercise));
@@ -218,5 +201,14 @@ public class ExerciseController
         List<Exercise> exercises = exerciseDAO.getByNamePattern(namePattern);
         context.status(200);
         context.json(ExerciseDTO.toExerciseDTOList(exercises));
+    }
+
+    private ExerciseDTO validate(Context context) throws ApiException
+    {
+        return context.bodyValidator(ExerciseDTO.class)
+                .check((exerciseDTO) -> exerciseDTO.getName() != null && !exerciseDTO.getName().isEmpty(), "Name cannot be empty")
+                .check((exerciseDTO) -> exerciseDTO.getName().length() <= 50, "Name longer than 50 characters")
+                .check((exerciseDTO) -> exerciseDAO.readByName(exerciseDTO.getName()) == null, "Name already exists")
+                .get();
     }
 }

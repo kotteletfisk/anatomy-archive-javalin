@@ -105,4 +105,18 @@ public class ExerciseTypeDao implements DAO<ExerciseType>
                     .getResultList();
         }
     }
+
+    public ExerciseType getByName(String name)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT e FROM ExerciseType e WHERE e.typeName = :name", ExerciseType.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            return null;
+        }
+    }
 }

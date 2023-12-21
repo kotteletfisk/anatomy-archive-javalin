@@ -30,7 +30,7 @@ public class ExerciseTypeController
 
     public void create(Context context) throws ApiException
     {
-        ExerciseTypeDTO exerciseTypeDTO = context.bodyAsClass(ExerciseTypeDTO.class);
+        ExerciseTypeDTO exerciseTypeDTO = validate(context);
         ExerciseType exerciseType = new ExerciseType(exerciseTypeDTO);
         exerciseTypeDao.create(exerciseType);
         context.status(201);
@@ -42,11 +42,20 @@ public class ExerciseTypeController
         int id = Integer.parseInt(context.pathParam("id"));
         if (!exerciseTypeDao.exists(id)) throw new ApiException(404, "Exercise type not found with id " + id);
 
-        ExerciseTypeDTO exerciseTypeDTO = context.bodyAsClass(ExerciseTypeDTO.class);
+        ExerciseTypeDTO exerciseTypeDTO = validate(context);
         ExerciseType exerciseType = new ExerciseType(exerciseTypeDTO);
         exerciseType.setId(id);
         exerciseType = exerciseTypeDao.update(exerciseType);
         context.status(200);
         context.json(new ExerciseTypeDTO(exerciseType));
+    }
+
+    private ExerciseTypeDTO validate(Context context)
+    {
+        return context.bodyValidator(ExerciseTypeDTO.class)
+                .check((exerciseTypeDTO) -> exerciseTypeDTO.getTypeName() != null && !exerciseTypeDTO.getTypeName().isEmpty(), "Type name cannot be empty or longer than 50 characters")
+                .check((exerciseTypeDTO) -> exerciseTypeDTO.getTypeName().length() <= 50, "Type name cannot be empty or longer than 50 characters")
+                .check((exerciseTypeDTO) -> exerciseTypeDao.getByName(exerciseTypeDTO.getTypeName()) == null, "Type name already exists")
+                .get();
     }
 }

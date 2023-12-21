@@ -62,6 +62,7 @@ public class MuscleGroupController
                 .check(muscleGroupDTO -> muscleGroupDTO.getName().length() <= 50, "Muscle group name cannot be longer than 50 characters")
                 .check(muscleGroupDTO -> muscleGroupDTO.getName().matches("^[a-zA-Z ]+$"), "Muscle group name can only contain alphanumeric characters and spaces")
                 .check(muscleGroupDTO -> muscleGroupDTO.getDescription() != null && !muscleGroupDTO.getDescription().isEmpty(), "Muscle group description cannot be null or empty")
+                .check(muscleGroupDTO -> muscleGroupDao.readByName(muscleGroupDTO.getName()) == null, "Muscle group name already exists")
                 .get();
     }
 }

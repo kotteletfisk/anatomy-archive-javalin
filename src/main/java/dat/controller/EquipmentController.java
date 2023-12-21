@@ -38,7 +38,7 @@ public class EquipmentController
 
     public void create(Context context) throws ApiException
     {
-        EquipmentDTO equipmentDTO = context.bodyAsClass(EquipmentDTO.class);
+        EquipmentDTO equipmentDTO = validate(context);
         Equipment equipment = new Equipment(equipmentDTO);
         equipmentDao.create(equipment);
         context.status(201);
@@ -48,7 +48,7 @@ public class EquipmentController
     public void update(Context context) throws ApiException
     {
         int id = Integer.parseInt(context.pathParam("id"));
-        EquipmentDTO equipmentDTO = context.bodyAsClass(EquipmentDTO.class);
+        EquipmentDTO equipmentDTO = validate(context);
         Equipment equipment = new Equipment(equipmentDTO);
         equipment.setId(id);
         equipmentDao.update(equipment);
@@ -63,5 +63,15 @@ public class EquipmentController
         Equipment equipment = equipmentDao.read(id);
         context.status(200);
         context.json(new EquipmentDTO(equipment));
+    }
+
+    private EquipmentDTO validate(Context context)
+    {
+        return context.bodyValidator(EquipmentDTO.class)
+                .check((equipmentDTO) -> equipmentDTO.getName() != null && !equipmentDTO.getName().isEmpty(), "Equipment name cannot be empty or longer than 50 characters")
+                .check((equipmentDTO) -> equipmentDTO.getName().length() <= 50, "Equipment name cannot be empty or longer than 50 characters")
+                .check((equipmentDTO -> !equipmentDTO.getDescription().isEmpty()), "Equipment description cannot be empty")
+                .check((equipmentDTO) -> equipmentDao.readByName(equipmentDTO.getName()) == null, "Equipment name already exists")
+                .get();
     }
 }

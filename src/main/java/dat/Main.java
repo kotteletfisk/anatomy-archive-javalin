@@ -19,14 +19,14 @@ public class Main
         // TODO: require authentication for POST, PUT, PATCH, DELETE
             // - have admin and manager role (done)
             // - password is hashed in database (done)
+            // - Admin: can do all above and create and delete managers (done except manager role)
             // - Manager: can create, update and delete exercises, equipment, muscle groups and muscles
-            // - Admin: can do all above and create and delete managers
-        // TODO: add routehandlers
-           // - Exercise (DOING)
-           // - Muscle
+        // DONE: add routehandlers
+           // - Exercise (DONE)
+           // - Muscle (DONE)
            // - MuscleGroup
            // - Equipment
-        // TODO: add controllers
+        // DONE: add controllers
         // TODO: find out the mediapath thing
         // TODO: React frontend
     }
