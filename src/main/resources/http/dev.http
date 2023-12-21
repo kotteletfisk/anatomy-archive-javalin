@@ -127,7 +127,7 @@ GET http://localhost:7070/search/muscle/byexercise?pattern=squ
 
 ### search equipment by muscle pattern
 
-GET http://localhost:7070/search/equipment/bymuscle?pattern=maj
+GET http://localhost:7070/search/equipment/bymuscle?pattern=
 
 ### search equipment by exercise pattern
 

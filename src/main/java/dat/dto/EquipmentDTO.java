@@ -16,6 +16,7 @@ public class EquipmentDTO
     private int id;
     private String name;
     private String description;
+    private String mediaPath;
 
     public EquipmentDTO(String name, String description)
     {
@@ -28,6 +29,7 @@ public class EquipmentDTO
         if (equipment.getId() != 0) this.id = equipment.getId();
         this.name = equipment.getName();
         this.description = equipment.getDescription();
+        this.mediaPath = equipment.getMediaPath();
     }
 
     public static List<EquipmentDTO> toEquipmentDTOList(List<Equipment> equipment)

@@ -1,5 +1,6 @@
 package dat.entities;
 
+import dat.dto.EquipmentDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,4 +36,11 @@ public class Equipment
 
     @OneToMany(mappedBy = "equipment", fetch = FetchType.EAGER)
     Set<ExerciseHasEquipment> exerciseHasEquipmentRelation = new HashSet<>();
+
+    public Equipment(EquipmentDTO equipmentDTO)
+    {
+        this.name = equipmentDTO.getName();
+        this.description = equipmentDTO.getDescription();
+        this.mediaPath = equipmentDTO.getMediaPath();
+    }
 }
