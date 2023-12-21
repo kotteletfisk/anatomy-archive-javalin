@@ -1,5 +1,6 @@
 package dat.entities;
 
+import dat.dto.MuscleDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +38,12 @@ public class Muscle
 
     @OneToMany(mappedBy = "muscle", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<ExerciseHasMuscles> exerciseHasMusclesRelation = new HashSet<>();
+
+    public Muscle(MuscleDTO muscleDTO)
+    {
+        if (muscleDTO.getId() != 0) this.id = muscleDTO.getId();
+        this.name = muscleDTO.getName();
+        this.description = muscleDTO.getDescription();
+        this.mediaPath = muscleDTO.getMediaPath();
+    }
 }

@@ -4,8 +4,7 @@ import dat.controller.MuscleController;
 import dat.entities.Role;
 import io.javalin.apibuilder.EndpointGroup;
 
-import static io.javalin.apibuilder.ApiBuilder.post;
-import static io.javalin.apibuilder.ApiBuilder.get;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 
 public class MuscleRoutes
@@ -15,9 +14,12 @@ public class MuscleRoutes
     public EndpointGroup getRoutes()
     {
         return () ->
-        {
+        {   // DEPRECATED
             get("/", muscleController::getAll, Role.ANYONE);
             get("/{name}", muscleController::getLikeName, Role.ANYONE);
+
+            post("/", muscleController::create, Role.ADMIN);
+            put("/{id}", muscleController::update, Role.ADMIN);
         };
     }
 }

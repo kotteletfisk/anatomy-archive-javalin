@@ -28,6 +28,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxN
   "mediaPath": null
 }
 
+### create muscle
+
+POST http://localhost:7070/muscle
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
+
+{
+
+}
+
 ### update equipment
 
 PUT http://localhost:7070/equipment/4
@@ -50,6 +60,18 @@ content-type: application/json
   "description": "Push Up description, but updated right",
   "mediaPath": null,
   "intensity": 5
+}
+
+### update muscle
+
+PUT http://localhost:7070/muscle/4
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
+
+{
+  "name": "Bar",
+  "description": "Bar description, but updated",
+  "mediaPath": null
 }
 
 ### delete

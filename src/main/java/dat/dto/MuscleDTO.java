@@ -16,6 +16,8 @@ public class MuscleDTO
     private int id;
     private String name;
     private String description;
+    private String mediaPath;
+    private int muscleGroupId;
 
     public MuscleDTO(String name, String description)
     {
@@ -28,6 +30,8 @@ public class MuscleDTO
         if (muscle.getId() != 0) this.id = muscle.getId();
         this.name = muscle.getName();
         this.description = muscle.getDescription();
+        this.mediaPath = muscle.getMediaPath();
+        this.muscleGroupId = muscle.getMuscleGroup().getId();
     }
 
     public static List<MuscleDTO> toMuscleDTOList(List<Muscle> muscles)

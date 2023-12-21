@@ -51,6 +51,7 @@ public class Populate
             em.getTransaction().begin();
             em.createNativeQuery("DELETE FROM exercisehasequipment").executeUpdate();
             em.createNativeQuery("DELETE FROM exercisehasmuscles").executeUpdate();
+            em.createNativeQuery("DELETE FROM exercisehastypes").executeUpdate();
             em.createQuery("DELETE FROM Equipment").executeUpdate();
             em.createQuery("DELETE FROM Exercise").executeUpdate();
             em.createQuery("DELETE FROM Muscle").executeUpdate();
@@ -86,6 +87,14 @@ public class Populate
             em.persist(equipment);
             em.persist(equipment2);
             em.persist(equipment3);
+
+            em.createNativeQuery("INSERT INTO exercisehasequipment (exercise_id, equipment_id) VALUES (1, 1)").executeUpdate();
+            em.createNativeQuery("INSERT INTO exercisehasequipment (exercise_id, equipment_id) VALUES (2, 1)").executeUpdate();
+            em.createNativeQuery("INSERT INTO exercisehasequipment (exercise_id, equipment_id) VALUES (3, 1)").executeUpdate();
+
+            em.createNativeQuery("INSERT INTO exercisehasmuscles (exercise_id, muscle_id) VALUES (1, 3)").executeUpdate();
+            em.createNativeQuery("INSERT INTO exercisehasmuscles (exercise_id, muscle_id) VALUES (1, 2)").executeUpdate();
+            em.createNativeQuery("INSERT INTO exercisehasmuscles (exercise_id, muscle_id) VALUES (1, 1)").executeUpdate();
 
             em.getTransaction().commit();
         }
