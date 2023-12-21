@@ -4,8 +4,7 @@ import dat.controller.EquipmentController;
 import dat.entities.Role;
 import io.javalin.apibuilder.EndpointGroup;
 
-import static io.javalin.apibuilder.ApiBuilder.post;
-import static io.javalin.apibuilder.ApiBuilder.put;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class EquipmentRoutes
 {
@@ -15,6 +14,7 @@ public class EquipmentRoutes
     {
         return () ->
         {
+          get("/{id}", equipmentController::getById, Role.ANYONE);
           post("/", equipmentController::create, Role.ADMIN);
           put("/{id}", equipmentController::update, Role.ADMIN);
         };

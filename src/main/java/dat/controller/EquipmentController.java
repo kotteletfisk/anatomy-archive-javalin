@@ -55,4 +55,13 @@ public class EquipmentController
         context.status(200);
         context.json(new EquipmentDTO(equipment));
     }
+
+    public void getById(Context context) throws ApiException
+    {
+        int id = Integer.parseInt(context.pathParam("id"));
+        if (!equipmentDao.exists(id)) throw new ApiException(404, "Equipment not found with id " + id);
+        Equipment equipment = equipmentDao.read(id);
+        context.status(200);
+        context.json(new EquipmentDTO(equipment));
+    }
 }
