@@ -12,7 +12,9 @@ GET http://localhost:7070/equipment/1
 
 GET http://localhost:7070/muscle/1
 
+### get musclegroup by id
 
+GET http://localhost:7070/musclegroup/1
 
 ### create
 

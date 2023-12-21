@@ -3,6 +3,7 @@ package dat.entities;
 import java.util.HashSet;
 import java.util.List;
 
+import dat.dto.MuscleGroupDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,14 @@ public class MuscleGroup
         this.name = name;
         this.description = description;
         this.mediaPath = mediaPath;
+    }
+
+    public MuscleGroup(MuscleGroupDTO muscleGroupDTO)
+    {
+        if (muscleGroupDTO.getId() != 0) this.id = muscleGroupDTO.getId();
+        this.name = muscleGroupDTO.getName();
+        this.description = muscleGroupDTO.getDescription();
+        this.mediaPath = muscleGroupDTO.getMediaPath();
     }
 
     public void addMuscle(Muscle muscle)
