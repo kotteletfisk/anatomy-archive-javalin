@@ -13,7 +13,7 @@ public class AuthRoutes
         return () ->
         {
             post("/login", authController::login, Role.ANYONE);
-            post("/register", authController::register, Role.ANYONE); //TODO: only admin can register
+            post("/register", authController::register, Role.ADMIN); // only admin can register
         };
     }
 }
