@@ -52,11 +52,16 @@ public class ApplicationConfig
 
     public static ClaimBuilder getClaimBuilder(User user, String role) throws IOException
     {
+        boolean isDeployed = (System.getenv("DEPLOYED") != null);
+        String issuer = isDeployed ? System.getenv("ISSUER") : ApplicationConfig.getProperty("issuer");
+        String audience = isDeployed ? System.getenv("AUDIENCE") : ApplicationConfig.getProperty("audience");
+        Long expirationTime = Long.parseLong(isDeployed ? System.getenv("TOKEN_EXPIRE_TIME") : ApplicationConfig.getProperty("token.expiration.time"));
+
         return ClaimBuilder.builder()
-                .issuer(ApplicationConfig.getProperty("issuer"))
-                .audience(ApplicationConfig.getProperty("audience"))
+                .issuer(issuer)
+                .audience(audience)
                 .claimSet(Map.of("username", user.getUsername(), "role", role))
-                .expirationTime(Long.parseLong(ApplicationConfig.getProperty("token.expiration.time")))
+                .expirationTime(expirationTime)
                 .issueTime(3600000L)
                 .build();
     }

@@ -22,6 +22,10 @@
         <db.username>postgres</db.username>
         <db.password>postgres</db.password>
         <db.connection.string>jdbc:postgresql://localhost:5432/</db.connection.string>
+
+        <issuer>kotteletfisk</issuer>
+        <audience>people</audience>
+
         <!--  Javalin    -->
         <javalin.port>7070</javalin.port>
 
