@@ -53,8 +53,8 @@ public class ApplicationConfig
     {
         boolean isDeployed = (System.getenv("DEPLOYED") != null);
         String issuer = isDeployed ? System.getenv("ISSUER") : ApplicationConfig.getProperty("issuer");
-        String audience = isDeployed ? System.getenv("AUDIENCE") : ApplicationConfig.getProperty("audience");
         Long expirationTime = Long.parseLong(isDeployed ? System.getenv("TOKEN_EXPIRE_TIME") : ApplicationConfig.getProperty("token.expiration.time"));
+        String audience = ApplicationConfig.getProperty("audience");
 
         return ClaimBuilder.builder()
                 .issuer(issuer)

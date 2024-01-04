@@ -36,4 +36,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/anatomy-archive-intellij:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/anatomy-archive-javalin:latest
