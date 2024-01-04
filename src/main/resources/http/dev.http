@@ -61,7 +61,7 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJleHAiOjE3MDMxNjQ2NzIsImlhdCI6MTcwMzE1NzQ3MiwidXNlcm5hbWUiOiJhZG1pbiJ9.acqq1h_B78J4mTorkVtIqlNDR0F4MBzKowlP4q2VHVs
 
 {
-  "name": "",
+  "name": "Eyes",
   "description": "Face description",
   "mediaPath": null
 }

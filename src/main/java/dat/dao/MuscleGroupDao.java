@@ -5,6 +5,7 @@ import dat.entities.MuscleGroup;
 import dat.exception.ApiException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -55,6 +56,10 @@ public class MuscleGroupDao implements DAO<MuscleGroup>
             return em.createQuery("SELECT m FROM MuscleGroup m WHERE m.name = :name", MuscleGroup.class)
                     .setParameter("name", name)
                     .getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            return null;
         }
     }
 
