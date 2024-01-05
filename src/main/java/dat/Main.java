@@ -29,6 +29,5 @@ public class Main
         // DONE: add controllers
         // TODO: find out the mediapath thing
         // TODO: React frontend
-        // hej
     }
 }
