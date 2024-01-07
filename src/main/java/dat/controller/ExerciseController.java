@@ -1,7 +1,8 @@
 package dat.controller;
 
-import dat.dao.DAO;
+import dat.dao.EquipmentDao;
 import dat.dao.ExerciseDao;
+import dat.dao.ExerciseTypeDao;
 import dat.dao.MuscleDao;
 import dat.dto.EquipmentDTO;
 import dat.dto.ExerciseDTO;
@@ -15,12 +16,13 @@ import dat.exception.ApiException;
 import io.javalin.http.Context;
 
 import java.util.List;
-import java.util.Set;
 
 public class ExerciseController
 {
     ExerciseDao exerciseDAO = ExerciseDao.getInstance();
+    ExerciseTypeDao exerciseTypeDAO = ExerciseTypeDao.getInstance();
     MuscleDao muscleDAO = MuscleDao.getInstance();
+    EquipmentDao equipmentDAO = EquipmentDao.getInstance();
 
     public void getAll(Context context) throws Exception
     {
@@ -84,7 +86,7 @@ public class ExerciseController
             for (int i = 0; i < muscleIds.length; i++)
             {
                 muscleIdsInt[i] = Integer.parseInt(muscleIds[i]);
-                if (!exerciseDAO.exists(muscleIdsInt[i])) throw new ApiException(404, "Exercise with id " + muscleIdsInt[i] + " not found");
+                if (!muscleDAO.exists(muscleIdsInt[i])) throw new ApiException(404, "Muscle with id " + muscleIdsInt[i] + " not found");
             }
             exerciseDAO.addMuscleToExercise(exerciseId, muscleIdsInt);
         }
@@ -117,19 +119,19 @@ public class ExerciseController
         String typeId = context.queryParam("typeId");
         if (typeId.contains(","))
         {
-            String[] typeIds = typeId.split(",");
+            String[] typeIds = typeId.trim().split(",");
             int[] typeIdsInt = new int[typeIds.length];
             for (int i = 0; i < typeIds.length; i++)
             {
                 typeIdsInt[i] = Integer.parseInt(typeIds[i]);
-                if (!exerciseDAO.exists(typeIdsInt[i])) throw new ApiException(404, "Type with id " + typeIdsInt[i] + " not found");
+                if (!exerciseTypeDAO.exists(typeIdsInt[i])) throw new ApiException(404, "Type with id " + typeIdsInt[i] + " not found");
             }
             exerciseDAO.addTypeToExercise(exerciseId, typeIdsInt);
         }
         else
         {
             int parsedInt = Integer.parseInt(typeId);
-            if (!exerciseDAO.exists(parsedInt)) throw new ApiException(404, "Type with id " + typeId + " not found");
+            if (!exerciseTypeDAO.exists(parsedInt)) throw new ApiException(404, "Type with id " + typeId + " not found");
             exerciseDAO.addTypeToExercise(exerciseId, parsedInt);
         }
         context.status(201);
@@ -157,14 +159,14 @@ public class ExerciseController
             for (int i = 0; i < equipmentIds.length; i++)
             {
                 equipmentIdsInt[i] = Integer.parseInt(equipmentIds[i]);
-                if (!exerciseDAO.exists(equipmentIdsInt[i])) throw new ApiException(404, "Equipment with id " + equipmentIdsInt[i] + " not found");
+                if (!equipmentDAO.exists(equipmentIdsInt[i])) throw new ApiException(404, "Equipment with id " + equipmentIdsInt[i] + " not found");
             }
             exerciseDAO.addEquipmentToExercise(exerciseId, equipmentIdsInt);
         }
         else
         {
             int parsedInt = Integer.parseInt(equipmentId);
-            if (!exerciseDAO.exists(parsedInt)) throw new ApiException(404, "Equipment with id " + equipmentId + " not found");
+            if (!equipmentDAO.exists(parsedInt)) throw new ApiException(404, "Equipment with id " + equipmentId + " not found");
             exerciseDAO.addEquipmentToExercise(exerciseId, parsedInt);
         }
         context.status(201);
